@@ -30,17 +30,28 @@ width: 100%;
   position: absolute;
 }
 
-.dice, .dice-guess {
-    width: auto;
-    height: auto;
-}
-
-.dice img {
-    position: absolute;
-    opacity: 0;
-    width: 6em;
+.dice-guess {
+    margin-left: 5em;
 }
 
 .dice .active {
     opacity: 1;
 }
+
+
+.dice-guess .active-guess {
+    opacity: 1;  
+}
+
+.dice img  {
+    position: absolute;
+    opacity: 0;
+    width: 6em;
+}
+
+.dice-guess img {
+    position: absolute;
+    opacity: 0;
+    width: 6em;
+}
+
