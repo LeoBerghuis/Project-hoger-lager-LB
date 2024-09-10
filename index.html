@@ -3,20 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hoger Lager LB</title>
+    <title>Hoger Lager LD</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <header>
-        <div class="left">
+       <!-- <div class="left">
             <img alt="dice" class="logo" src="img/dice06.webp" title="Logo">
             <p>Hoger Lager</p>
-        </div>
+        </div> -->
     </header>
     <main>
         <div class="center">
             <img src="img/table_green-removebg-preview.png" class="table" alt="table" title="Poker table">
+            <div class="dice">
+                <img src="img/white_dice_1.jpg" class="active" alt="Dice 1" title="Dice 1">
+                <img src="img/white_dice_2.jpg" alt="Dice 2" title="Dice 2">
+                <img src="img/white_dice_3.jpg" alt="Dice 3" title="Dice 3">
+                <img src="img/white_dice_4.jpg" alt="Dice 4" title="Dice 4">
+                <img src="img/white_dice_5.jpg" alt="Dice 5" title="Dice 5">
+                <img src="img/white_dice_6.jpg" alt="Dice 6" title="Dice 6">`
+            </div>
         </div>
+
+        <button onclick="cycleDice()" class="start-button" style="margin-top: 10em;">Start game</button>
     </main>
+
+    <script src="js/main.js"></script>
 </body>
 </html>

@@ -32,4 +32,21 @@ p {
 
 .table {
     width: 40em;
+  
+}
+
+.dice {
+
+    position: relative;
+    width: auto;
+    height: auto;
+}
+
+.dice img {
+    position: absolute;
+    opacity: 0;
+}
+
+.dice .active {
+    opacity: 1;
 }
