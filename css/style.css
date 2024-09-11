@@ -65,3 +65,6 @@ width: 100%;
     width: 200px;
 }
 
+.logo {
+    max-width: 50px;
+}
