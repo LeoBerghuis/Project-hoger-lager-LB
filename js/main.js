@@ -7,7 +7,8 @@ const totalImages = dice.length;
 const totalImagesGuess = diceGuess.length;
 let intervalId; 
 let startGuessLow;
-let startGuessHigh
+let startGuessHigh;
+let points = 0;
 
 
 document.querySelector('.start-button').addEventListener('click', startCycling);
@@ -53,10 +54,15 @@ function cycleLower() {
 function guessLower() {
     if (currentDiceGuessLower < currentDice) {
         console.log('You win!');
+        points = points + 10;
+        console.log(points);
     } else if (currentDiceGuessLower === currentDice) {
         console.log('Tie!');
+        console.log(points);
     } else {
         console.log('You lose :(');
+        points = points - 5;
+        console.log(points);
     }
 }
 
@@ -81,9 +87,14 @@ function cycleHigher() {
 function guessHigher() {
     if ( currentDice < currentDiceGuessHigher) {
         console.log('You win!');
+        points = points + 10
+        console.log(points);
     } else if (currentDiceGuessHigher === currentDice) {
         console.log('Tie!');
+        console.log(points);
     } else {
         console.log('You lose :(');
+        points = points - 5;
+        console.log(points);
     }
 }
