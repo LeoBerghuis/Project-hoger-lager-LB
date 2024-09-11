@@ -9,18 +9,23 @@ let intervalId;
 let startGuessLow;
 let startGuessHigh;
 let points = 0;
+let pointSystem = document.querySelector('.point').innerHTML = points;
 
 
 document.querySelector('.start-button').addEventListener('click', startCycling);
 document.querySelector('.guess-lower').addEventListener('click', startLower);
 document.querySelector('.guess-higher').addEventListener('click', startHigher);
 
+
 function cycleDice() {
      randomDice = Math.round(Math.random() * 6)
     dice[currentDice].classList.remove('active');
     currentDice = (randomDice) % totalImages;
     dice[currentDice].classList.add('active');
+}
 
+function updatePoints() {
+  pointSystem = document.querySelector('.point').innerHTML = points;
 }
 
 function startCycling() {
@@ -34,16 +39,17 @@ function startCycling() {
 
 function startLower() {
 
-    startGuessLow = setInterval(cycleLower, 100)
+    startGuessLow = setInterval(cycleLower, 100);
 
     setTimeout(function() {
         clearInterval(startGuessLow);
-        guessLower()
+        guessLower();
+        updatePoints();
     }, 4000);
 }
 
 function cycleLower() {
-    randomDice = Math.round(Math.random() * 6)
+    randomDice = Math.round(Math.random() * 6);
     diceGuess[currentDiceGuessLower].classList.remove('active-guess');
     currentDiceGuessLower = (randomDice) % totalImagesGuess;
     diceGuess[currentDiceGuessLower].classList.add('active-guess');
@@ -72,12 +78,13 @@ function startHigher() {
 
     setTimeout(function() {
         clearInterval(startGuessHigh);
-        guessHigher()
+        guessHigher();
+        updatePoints();
     }, 4000);
 }
 
 function cycleHigher() {
-    randomDice = Math.round(Math.random() * 6)
+    randomDice = Math.round(Math.random() * 6);
     diceGuess[currentDiceGuessHigher].classList.remove('active-guess');
     currentDiceGuessHigher = (randomDice) % totalImagesGuess;
     diceGuess[currentDiceGuessHigher].classList.add('active-guess');
@@ -87,7 +94,7 @@ function cycleHigher() {
 function guessHigher() {
     if ( currentDice < currentDiceGuessHigher) {
         console.log('You win!');
-        points = points + 10
+        points = points + 10;
         console.log(points);
     } else if (currentDiceGuessHigher === currentDice) {
         console.log('Tie!');
