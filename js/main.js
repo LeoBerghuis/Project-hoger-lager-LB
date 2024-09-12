@@ -8,23 +8,34 @@ const totalImagesGuess = diceGuess.length;
 let intervalId; 
 let startGuessLow;
 let startGuessHigh;
-let points = 150;
+let points = 300;
 let pointSystem = document.querySelector('.point').innerHTML = points;
 const upgradeBackgroud = 150;
+const upgradeDice = 250;
 
 
 document.querySelector('.start-button').addEventListener('click', startCycling);
 document.querySelector('.guess-lower').addEventListener('click', startLower);
 document.querySelector('.guess-higher').addEventListener('click', startHigher);
 document.querySelector('.buy-background').addEventListener('click', buyBackground);
+document.querySelector('.buy-dice').addEventListener('click', buyDice);
 
 
 function buyBackground() {
     if(points >= upgradeBackgroud) {
         points = points - upgradeBackgroud;
-        pointSystem = document.querySelector('.point').innerHTML = points;
+        updatePoints();
     } else {
-        alert('Not enough points!!')
+        alert('Not enough points!!');
+    }
+}
+
+function buyDice() {
+    if(points >= upgradeDice) {
+        points = points - upgradeDice;
+        updatePoints();
+    } else {
+        alert('Not enough points!!');
     }
 }
 
@@ -64,7 +75,6 @@ function cycleLower() {
     diceGuess[currentDiceGuessLower].classList.remove('active-guess');
     currentDiceGuessLower = (randomDice) % totalImagesGuess;
     diceGuess[currentDiceGuessLower].classList.add('active-guess');
-    
 }
 
 
@@ -72,14 +82,11 @@ function guessLower() {
     if (currentDiceGuessLower < currentDice) {
         console.log('You win!');
         points = points + 10;
-        console.log(points);
     } else if (currentDiceGuessLower === currentDice) {
         console.log('Tie!');
-        console.log(points);
     } else {
         console.log('You lose :(');
         points = points - 5;
-        console.log(points);
     }
 }
 
@@ -98,21 +105,17 @@ function cycleHigher() {
     randomDice = Math.round(Math.random() * 6);
     diceGuess[currentDiceGuessHigher].classList.remove('active-guess');
     currentDiceGuessHigher = (randomDice) % totalImagesGuess;
-    diceGuess[currentDiceGuessHigher].classList.add('active-guess');
-    
+    diceGuess[currentDiceGuessHigher].classList.add('active-guess');   
 }
 
 function guessHigher() {
     if ( currentDice < currentDiceGuessHigher) {
         console.log('You win!');
         points = points + 10;
-        console.log(points);
     } else if (currentDiceGuessHigher === currentDice) {
         console.log('Tie!');
-        console.log(points);
     } else {
         console.log('You lose :(');
         points = points - 5;
-        console.log(points);
     }
 }
