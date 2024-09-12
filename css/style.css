@@ -29,6 +29,11 @@ width: 100%;
     align-items: center;
 }
 
+.points {
+    display: flex;
+    flex-direction: row;
+}
+
 .background {
     width: 40em;
   position: absolute;
