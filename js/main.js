@@ -8,7 +8,7 @@ const totalImagesGuess = diceGuess.length;
 let intervalId; 
 let startGuessLow;
 let startGuessHigh;
-let points = 300;
+let points = 0;
 let pointSystem = document.querySelector('.point').innerHTML = points;
 const upgradeBackgroud = 150;
 const upgradeDice = 250;
