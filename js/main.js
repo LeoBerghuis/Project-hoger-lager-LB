@@ -8,26 +8,45 @@ const totalImagesGuess = diceGuess.length;
 let intervalId; 
 let startGuessLow;
 let startGuessHigh;
-let points = 0;
+let points = localStorage.getItem('points') ? parseInt(localStorage.getItem('points')) : 0;
 let pointSystem = document.querySelector('.point').innerHTML = points;
-const upgradeBackgroud = 150;
+const upgradeBackgroudYellow = 150;
+const upgradeBackgroudGreen = 200;
+const upgradeBackgroudMulti = 250;
 const upgradeDice = 250;
 
 
+document.querySelector('.buy-background-yellow').addEventListener('click', upgradeBackground);
+document.querySelector('.buy-background-green').addEventListener('click', upgradeBackground);
+document.querySelector('.buy-background-multi').addEventListener('click', upgradeBackground);
 document.querySelector('.start-button').addEventListener('click', startCycling);
 document.querySelector('.guess-lower').addEventListener('click', startLower);
 document.querySelector('.guess-higher').addEventListener('click', startHigher);
-document.querySelector('.buy-background').addEventListener('click', buyBackground);
 document.querySelector('.buy-dice').addEventListener('click', buyDice);
+document.querySelector('.buy-dice').addEventListener('click', returnToRed);
 
 
-function buyBackground() {
-    if(points >= upgradeBackgroud) {
-        points = points - upgradeBackgroud;
+function upgradeBackground() {
+    if (event.target.classList.contains('buy-background-yellow') && points >= upgradeBackgroudYellow) {
+        points = points - upgradeBackgroudYellow;
         updatePoints();
+        document.body.style.backgroundImage = 'url("../img/2.png")';
+    } else if (event.target.classList.contains('buy-background-green') && points >= upgradeBackgroudGreen) {
+        points = points - upgradeBackgroudGreen;
+        updatePoints();
+        document.body.style.backgroundImage = 'url("../img/1.png")';
+    } else if (event.target.classList.contains('buy-background-multi') && points >= upgradeBackgroudMulti) {
+        points = points - upgradeBackgroudMulti;
+        updatePoints();
+        document.body.style.backgroundImage = 'url("../img/3.png")';
     } else {
-        alert('Not enough points!!');
+        alert('Not enough points!!')
     }
+}
+
+
+function returnToRed() {
+    document.body.style.backgroundImage = 'url("../img/4.png")';
 }
 
 function buyDice() {
@@ -48,6 +67,7 @@ function cycleDice() {
 
 function updatePoints() {
   pointSystem = document.querySelector('.point').innerHTML = points;
+  localStorage.setItem('points', points);
 }
 
 function startCycling() {
