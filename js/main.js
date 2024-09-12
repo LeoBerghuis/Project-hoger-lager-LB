@@ -8,14 +8,25 @@ const totalImagesGuess = diceGuess.length;
 let intervalId; 
 let startGuessLow;
 let startGuessHigh;
-let points = 0;
+let points = 150;
 let pointSystem = document.querySelector('.point').innerHTML = points;
+const upgradeBackgroud = 150;
 
 
 document.querySelector('.start-button').addEventListener('click', startCycling);
 document.querySelector('.guess-lower').addEventListener('click', startLower);
 document.querySelector('.guess-higher').addEventListener('click', startHigher);
+document.querySelector('.buy-background').addEventListener('click', buyBackground);
 
+
+function buyBackground() {
+    if(points >= upgradeBackgroud) {
+        points = points - upgradeBackgroud;
+        pointSystem = document.querySelector('.point').innerHTML = points;
+    } else {
+        alert('Not enough points!!')
+    }
+}
 
 function cycleDice() {
      randomDice = Math.round(Math.random() * 6)
