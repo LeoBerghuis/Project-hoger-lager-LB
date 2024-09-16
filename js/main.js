@@ -5,7 +5,7 @@ const dice = document.querySelectorAll('.dice img');
 const diceGuess = document.querySelectorAll('.dice-guess img');
 const totalImages = dice.length;
 const totalImagesGuess = diceGuess.length;
-let intervalId; 
+let intervalId;
 let startGuessLow;
 let startGuessHigh;
 let points = localStorage.getItem('points') ? parseInt(localStorage.getItem('points')) : 0;
@@ -14,6 +14,9 @@ const upgradeBackgroudYellow = 150;
 const upgradeBackgroudGreen = 200;
 const upgradeBackgroudMulti = 250;
 const upgradeDice = 250;
+let ownMulti = false;
+let ownGreen = false;
+let ownGold = false;
 
 
 document.querySelector('.buy-background-yellow').addEventListener('click', upgradeBackground);
@@ -28,17 +31,36 @@ document.querySelector('.buy-dice').addEventListener('click', returnToRed);
 
 function upgradeBackground() {
     if (event.target.classList.contains('buy-background-yellow') && points >= upgradeBackgroudYellow) {
-        points = points - upgradeBackgroudYellow;
-        updatePoints();
-        document.body.style.backgroundImage = 'url("../img/2.png")';
+        if (ownGold === true) {
+            alert('You already own this!');
+            document.body.style.backgroundImage = 'url("../img/2.png")';
+        } else {
+            points = points - upgradeBackgroudYellow;
+            updatePoints();
+            document.body.style.backgroundImage = 'url("../img/2.png")';
+            ownGold = true;
+            console.log(ownGold);
+        }
     } else if (event.target.classList.contains('buy-background-green') && points >= upgradeBackgroudGreen) {
-        points = points - upgradeBackgroudGreen;
-        updatePoints();
-        document.body.style.backgroundImage = 'url("../img/1.png")';
+        if (ownGreen === true) {
+            alert('You already own this!');
+            document.body.style.backgroundImage = 'url("../img/1.png")';
+        } else {
+            points = points - upgradeBackgroudGreen;
+            updatePoints();
+            document.body.style.backgroundImage = 'url("../img/1.png")';
+            ownGreen = true
+        }    
     } else if (event.target.classList.contains('buy-background-multi') && points >= upgradeBackgroudMulti) {
-        points = points - upgradeBackgroudMulti;
-        updatePoints();
-        document.body.style.backgroundImage = 'url("../img/3.png")';
+        if (ownMulti === true) {
+            alert('You already own this!');
+            document.body.style.backgroundImage = 'url("../img/3.png")';
+        } else {
+            points = points - upgradeBackgroudMulti;
+            updatePoints();
+            document.body.style.backgroundImage = 'url("../img/3.png")';
+            ownMulti = true;
+        }
     } else {
         alert('Not enough points!!')
     }
@@ -50,7 +72,7 @@ function returnToRed() {
 }
 
 function buyDice() {
-    if(points >= upgradeDice) {
+    if (points >= upgradeDice) {
         points = points - upgradeDice;
         updatePoints();
     } else {
@@ -59,31 +81,31 @@ function buyDice() {
 }
 
 function cycleDice() {
-     randomDice = Math.round(Math.random() * 6)
+    randomDice = Math.round(Math.random() * 6)
     dice[currentDice].classList.remove('active');
     currentDice = (randomDice) % totalImages;
     dice[currentDice].classList.add('active');
 }
 
 function updatePoints() {
-  pointSystem = document.querySelector('.point').innerHTML = points;
-  localStorage.setItem('points', points);
+    pointSystem = document.querySelector('.point').innerHTML = points;
+    localStorage.setItem('points', points);
 }
 
 function startCycling() {
 
     intervalId = setInterval(cycleDice, 100);
 
-    setTimeout(function() {
+    setTimeout(function () {
         clearInterval(intervalId);
-    }, 4000); 
+    }, 4000);
 }
 
 function startLower() {
 
     startGuessLow = setInterval(cycleLower, 100);
 
-    setTimeout(function() {
+    setTimeout(function () {
         clearInterval(startGuessLow);
         guessLower();
         updatePoints();
@@ -114,7 +136,7 @@ function startHigher() {
 
     startGuessHigh = setInterval(cycleHigher, 100)
 
-    setTimeout(function() {
+    setTimeout(function () {
         clearInterval(startGuessHigh);
         guessHigher();
         updatePoints();
@@ -125,11 +147,11 @@ function cycleHigher() {
     randomDice = Math.round(Math.random() * 6);
     diceGuess[currentDiceGuessHigher].classList.remove('active-guess');
     currentDiceGuessHigher = (randomDice) % totalImagesGuess;
-    diceGuess[currentDiceGuessHigher].classList.add('active-guess');   
+    diceGuess[currentDiceGuessHigher].classList.add('active-guess');
 }
 
 function guessHigher() {
-    if ( currentDice < currentDiceGuessHigher) {
+    if (currentDice < currentDiceGuessHigher) {
         console.log('You win!');
         points = points + 10;
     } else if (currentDiceGuessHigher === currentDice) {
