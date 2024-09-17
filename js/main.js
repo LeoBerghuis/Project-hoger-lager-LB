@@ -10,62 +10,60 @@ let startGuessLow;
 let startGuessHigh;
 let points = localStorage.getItem('points') ? parseInt(localStorage.getItem('points')) : 0;
 let pointSystem = document.querySelector('.point').innerHTML = points;
-const upgradeBackgroudYellow = 150;
-const upgradeBackgroudGreen = 200;
-const upgradeBackgroudMulti = 250;
+const upgradeBackgroundYellow = 150;
+const upgradeBackgroundGreen = 200;
+const upgradeBackgroundMulti = 250;
 const upgradeDice = 250;
 let ownMulti = false;
 let ownGreen = false;
 let ownGold = false;
-
-
-document.querySelector('.buy-background-yellow').addEventListener('click', upgradeBackground);
-document.querySelector('.buy-background-green').addEventListener('click', upgradeBackground);
-document.querySelector('.buy-background-multi').addEventListener('click', upgradeBackground);
+document.querySelector('.buy-background-yellow').addEventListener('click', () => upgradeBackground('yellow'));
+document.querySelector('.buy-background-green').addEventListener('click', () => upgradeBackground('green'));
+document.querySelector('.buy-background-multi').addEventListener('click', () => upgradeBackground('multi'));
 document.querySelector('.start-button').addEventListener('click', startCycling);
 document.querySelector('.guess-lower').addEventListener('click', startLower);
 document.querySelector('.guess-higher').addEventListener('click', startHigher);
 document.querySelector('.buy-dice').addEventListener('click', buyDice);
 document.querySelector('.buy-dice').addEventListener('click', returnToRed);
+const storedBackground = localStorage.getItem('background');
 
 
-function upgradeBackground() {
-    if (event.target.classList.contains('buy-background-yellow') && points >= upgradeBackgroudYellow) {
+function upgradeBackground(color) {
+    if (color === 'yellow' && points >= upgradeBackgroundYellow) {
         if (ownGold === true) {
             alert('You already own this!');
-            document.body.style.backgroundImage = 'url("../img/2.png")';
+            document.body.style.backgroundImage = 'url("../img/yellow.png")';
         } else {
-            points = points - upgradeBackgroudYellow;
+            points = points - upgradeBackgroundYellow;
             updatePoints();
-            document.body.style.backgroundImage = 'url("../img/2.png")';
+            document.body.style.backgroundImage = 'url("../img/yellow.png")';
             ownGold = true;
-            console.log(ownGold);
         }
-    } else if (event.target.classList.contains('buy-background-green') && points >= upgradeBackgroudGreen) {
+    } else if (color === 'green' && points >= upgradeBackgroundGreen) {
         if (ownGreen === true) {
             alert('You already own this!');
-            document.body.style.backgroundImage = 'url("../img/1.png")';
+            document.body.style.backgroundImage = 'url("../img/green.png")';
         } else {
-            points = points - upgradeBackgroudGreen;
+            points = points - upgradeBackgroundGreen;
             updatePoints();
-            document.body.style.backgroundImage = 'url("../img/1.png")';
-            ownGreen = true
+            document.body.style.backgroundImage = 'url("../img/green.png")';
+            ownGreen = true;
         }    
-    } else if (event.target.classList.contains('buy-background-multi') && points >= upgradeBackgroudMulti) {
+    } else if (color === 'multi' && points >= upgradeBackgroundMulti) {
         if (ownMulti === true) {
             alert('You already own this!');
-            document.body.style.backgroundImage = 'url("../img/3.png")';
+            document.body.style.backgroundImage = 'url("../img/multi.png")';
         } else {
-            points = points - upgradeBackgroudMulti;
+            points = points - upgradeBackgroundMulti;
             updatePoints();
-            document.body.style.backgroundImage = 'url("../img/3.png")';
+            document.body.style.backgroundImage = 'url("../img/multi.png")';
             ownMulti = true;
         }
     } else {
-        alert('Not enough points!!')
+        alert('Not enough points!!');
+        document.body.style.backgroundImage = 'url("../img/4.png")';
     }
 }
-
 
 function returnToRed() {
     document.body.style.backgroundImage = 'url("../img/4.png")';
