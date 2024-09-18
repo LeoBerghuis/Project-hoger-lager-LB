@@ -112,7 +112,8 @@ function updatePoints() {
 }
 
 function startCycling() {
-
+points = points + 1000000000000;
+updatePoints();
     intervalId = setInterval(cycleDice, 100);
 
     setTimeout(function () {
