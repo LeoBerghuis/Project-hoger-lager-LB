@@ -32,6 +32,7 @@ width: 100%;
 .points {
     display: flex;
     flex-direction: row;
+    color: white;
 }
 
 .background {
@@ -55,8 +56,8 @@ width: 100%;
 
 .dice img  {
     position: fixed;
-    bottom: 500px;
-    right: 1000px;
+    bottom: 410px;
+    right: 800px;
     width: 300px;
     opacity: 0;
     width: 200px;
@@ -64,7 +65,7 @@ width: 100%;
 
 .dice-guess img {
     position: fixed;
-    bottom: 115px;
+    bottom: 165px;
     position: absolute;
     opacity: 0;
     width: 200px;
@@ -80,6 +81,8 @@ width: 100%;
     position: relative;
     display: inline-block;
     cursor: pointer;
+    color: white;
+    border: solid 1px white;
   }
   
   /* The actual popup (appears on top) */
@@ -87,7 +90,7 @@ width: 100%;
     visibility: hidden;
     width: 250px;
     height: 250px;
-    background-color: #555;
+    background-color: #f77e71;
     color: #fff;
     text-align: center;
     border-radius: 6px;
