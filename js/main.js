@@ -159,3 +159,7 @@ function guessHigher() {
         points = points - 5;
     }
 }
+function myFunction() {
+  const popup = document.getElementById("myPopup");
+  popup.classList.toggle("show");
+}
