@@ -25,6 +25,7 @@ document.querySelector('.start-button').addEventListener('click', startCycling);
 document.querySelector('.guess-lower').addEventListener('click', startLower);
 document.querySelector('.guess-higher').addEventListener('click', startHigher);
 document.querySelector('.buy-dice').addEventListener('click', buyDice);
+document.querySelector('.popup').addEventListener('click', openPopup);
 
 
 function upgradeBackground(color) {
@@ -112,8 +113,6 @@ function updatePoints() {
 }
 
 function startCycling() {
-points = points + 1000000000000;
-updatePoints();
     intervalId = setInterval(cycleDice, 100);
 
     setTimeout(function () {
@@ -181,7 +180,7 @@ function guessHigher() {
         points = points - 5;
     }
 }
-function myFunction() {
+function openPopup() {
   const popup = document.getElementById("myPopup");
   popup.classList.toggle("show");
 }
