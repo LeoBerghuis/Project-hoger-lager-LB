@@ -17,6 +17,7 @@ let ownMulti = false;
 let ownGreen = false;
 let ownGold = false;
 const ownRed = true;
+let startGame = false;
 document.querySelector('.buy-background-yellow').addEventListener('click', () => upgradeBackground('yellow'));
 document.querySelector('.buy-background-green').addEventListener('click', () => upgradeBackground('green'));
 document.querySelector('.buy-background-multi').addEventListener('click', () => upgradeBackground('multi'));
@@ -117,18 +118,25 @@ function startCycling() {
 
     setTimeout(function () {
         clearInterval(intervalId);
+        startGame = true;
     }, 4000);
+    
 }
 
 function startLower() {
 
-    startGuessLow = setInterval(cycleLower, 100);
+    if (startGame === false) {
+        alert('Start game first!')
+    } else {
+        startGuessLow = setInterval(cycleLower, 100);
 
-    setTimeout(function () {
-        clearInterval(startGuessLow);
-        guessLower();
-        updatePoints();
-    }, 4000);
+        setTimeout(function () {
+            clearInterval(startGuessLow);
+            guessLower();
+            updatePoints();
+            startGame = false;
+        }, 4000);
+    }    
 }
 
 function cycleLower() {
@@ -153,13 +161,19 @@ function guessLower() {
 
 function startHigher() {
 
-    startGuessHigh = setInterval(cycleHigher, 100)
+    if (startGame === false) {
+        alert('Start game first!!')
+    } else{
+        startGuessHigh = setInterval(cycleHigher, 100)
+        setTimeout(function () {
+            clearInterval(startGuessHigh);
+            guessHigher();
+            updatePoints();
+            startGame = false;
+        }, 4000);
+    }
 
-    setTimeout(function () {
-        clearInterval(startGuessHigh);
-        guessHigher();
-        updatePoints();
-    }, 4000);
+    
 }
 
 function cycleHigher() {
