@@ -17,15 +17,16 @@ const upgradeDice = 250;
 let ownMulti = false;
 let ownGreen = false;
 let ownGold = false;
+const ownRed = true;
 document.querySelector('.buy-background-yellow').addEventListener('click', () => upgradeBackground('yellow'));
 document.querySelector('.buy-background-green').addEventListener('click', () => upgradeBackground('green'));
 document.querySelector('.buy-background-multi').addEventListener('click', () => upgradeBackground('multi'));
+document.querySelector('.return-red').addEventListener('click', () => upgradeBackground('red'));
 document.querySelector('.start-button').addEventListener('click', startCycling);
 document.querySelector('.guess-lower').addEventListener('click', startLower);
 document.querySelector('.guess-higher').addEventListener('click', startHigher);
 document.querySelector('.buy-dice').addEventListener('click', buyDice);
 document.querySelector('.buy-dice').addEventListener('click', returnToRed);
-const storedBackground = localStorage.getItem('background');
 
 
 function upgradeBackground(color) {
@@ -59,9 +60,11 @@ function upgradeBackground(color) {
             document.body.style.backgroundImage = 'url("../img/multi.png")';
             ownMulti = true;
         }
+    } else if (ownRed === true && color === 'red') {
+        document.body.style.backgroundImage = 'url("../img/red.png")'
     } else {
         alert('Not enough points!!');
-        document.body.style.backgroundImage = 'url("../img/4.png")';
+        document.body.style.backgroundImage = 'url("../img/red.png")';
     }
 }
 
