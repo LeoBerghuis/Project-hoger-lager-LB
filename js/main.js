@@ -25,7 +25,6 @@ document.querySelector('.start-button').addEventListener('click', startCycling);
 document.querySelector('.guess-lower').addEventListener('click', startLower);
 document.querySelector('.guess-higher').addEventListener('click', startHigher);
 document.querySelector('.buy-dice').addEventListener('click', buyDice);
-document.querySelector('.buy-dice').addEventListener('click', returnToRed);
 
 
 function upgradeBackground(color) {
@@ -67,14 +66,34 @@ function upgradeBackground(color) {
     }
 }
 
-function returnToRed() {
-    document.body.style.backgroundImage = 'url("../img/4.png")';
-}
-
 function buyDice() {
+    const diceOne = document.querySelector('.dice-one');
+    const diceTwo = document.querySelector('.dice-two');
+    const diceThree = document.querySelector('.dice-three');
+    const diceFour = document.querySelector('.dice-four');
+    const diceFive = document.querySelector('.dice-five');
+    const diceSix = document.querySelector('.dice-six');
+    const diceOneGuess = document.querySelector('.dice-one-Guess');
+    const diceTwoGuess = document.querySelector('.dice-two-Guess');
+    const diceThreeGuess = document.querySelector('.dice-three-Guess');
+    const diceFourGuess = document.querySelector('.dice-four-Guess');
+    const diceFiveGuess = document.querySelector('.dice-five-Guess');
+    const diceSixGuess = document.querySelector('.dice-six-Guess');
     if (points >= upgradeDice) {
         points = points - upgradeDice;
         updatePoints();
+        diceOne.src = "img/1-gold.png";
+        diceTwo.src = "img/2-gold.png";
+        diceThree.src = "img/3-gold.png";
+        diceFour.src = "img/4-gold.png";
+        diceFive.src = "img/5-gold.png";
+        diceSix.src = "img/6-gold.png";
+        diceOneGuess.src = "img/1-gold.png";
+        diceTwoGuess.src = "img/2-gold.png";
+        diceThreeGuess.src = "img/3-gold.png";
+        diceFourGuess.src = "img/4-gold.png";
+        diceFiveGuess.src = "img/5-gold.png";
+        diceSixGuess.src = "img/6-gold.png";
     } else {
         alert('Not enough points!!');
     }
