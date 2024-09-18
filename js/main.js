@@ -1,6 +1,5 @@
 let currentDice = Math.round(Math.random() * 6);
-let currentDiceGuessLower = Math.round(Math.random() * 6);
-let currentDiceGuessHigher = Math.round(Math.random() * 6);
+let currentDiceGuess = Math.round(Math.random() * 6);
 const dice = document.querySelectorAll('.dice img');
 const diceGuess = document.querySelectorAll('.dice-guess img');
 const totalImages = dice.length;
@@ -115,17 +114,17 @@ function startLower() {
 
 function cycleLower() {
     randomDice = Math.round(Math.random() * 6);
-    diceGuess[currentDiceGuessLower].classList.remove('active-guess');
-    currentDiceGuessLower = (randomDice) % totalImagesGuess;
-    diceGuess[currentDiceGuessLower].classList.add('active-guess');
+    diceGuess[currentDiceGuess].classList.remove('active-guess');
+    currentDiceGuess = (randomDice) % totalImagesGuess;
+    diceGuess[currentDiceGuess].classList.add('active-guess');
 }
 
 
 function guessLower() {
-    if (currentDiceGuessLower < currentDice) {
+    if (currentDiceGuess < currentDice) {
         console.log('You win!');
         points = points + 10;
-    } else if (currentDiceGuessLower === currentDice) {
+    } else if (currentDiceGuess === currentDice) {
         console.log('Tie!');
     } else {
         console.log('You lose :(');
@@ -146,16 +145,16 @@ function startHigher() {
 
 function cycleHigher() {
     randomDice = Math.round(Math.random() * 6);
-    diceGuess[currentDiceGuessHigher].classList.remove('active-guess');
-    currentDiceGuessHigher = (randomDice) % totalImagesGuess;
-    diceGuess[currentDiceGuessHigher].classList.add('active-guess');
+    diceGuess[currentDiceGuess].classList.remove('active-guess');
+    currentDiceGuess = (randomDice) % totalImagesGuess;
+    diceGuess[currentDiceGuess].classList.add('active-guess');
 }
 
 function guessHigher() {
-    if (currentDice < currentDiceGuessHigher) {
+    if (currentDice < currentDiceGuess) {
         console.log('You win!');
         points = points + 10;
-    } else if (currentDiceGuessHigher === currentDice) {
+    } else if (currentDiceGuess === currentDice) {
         console.log('Tie!');
     } else {
         console.log('You lose :(');
