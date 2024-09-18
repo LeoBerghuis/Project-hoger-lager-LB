@@ -1,6 +1,5 @@
 let currentDice = Math.round(Math.random() * 6);
-let currentDiceGuessLower = Math.round(Math.random() * 6);
-let currentDiceGuessHigher = Math.round(Math.random() * 6);
+let currentDiceGuess = Math.round(Math.random() * 6);
 const dice = document.querySelectorAll('.dice img');
 const diceGuess = document.querySelectorAll('.dice-guess img');
 const totalImages = dice.length;
@@ -26,7 +25,6 @@ document.querySelector('.start-button').addEventListener('click', startCycling);
 document.querySelector('.guess-lower').addEventListener('click', startLower);
 document.querySelector('.guess-higher').addEventListener('click', startHigher);
 document.querySelector('.buy-dice').addEventListener('click', buyDice);
-document.querySelector('.buy-dice').addEventListener('click', returnToRed);
 
 
 function upgradeBackground(color) {
@@ -68,14 +66,34 @@ function upgradeBackground(color) {
     }
 }
 
-function returnToRed() {
-    document.body.style.backgroundImage = 'url("../img/4.png")';
-}
-
 function buyDice() {
+    const diceOne = document.querySelector('.dice-one');
+    const diceTwo = document.querySelector('.dice-two');
+    const diceThree = document.querySelector('.dice-three');
+    const diceFour = document.querySelector('.dice-four');
+    const diceFive = document.querySelector('.dice-five');
+    const diceSix = document.querySelector('.dice-six');
+    const diceOneGuess = document.querySelector('.dice-one-Guess');
+    const diceTwoGuess = document.querySelector('.dice-two-Guess');
+    const diceThreeGuess = document.querySelector('.dice-three-Guess');
+    const diceFourGuess = document.querySelector('.dice-four-Guess');
+    const diceFiveGuess = document.querySelector('.dice-five-Guess');
+    const diceSixGuess = document.querySelector('.dice-six-Guess');
     if (points >= upgradeDice) {
         points = points - upgradeDice;
         updatePoints();
+        diceOne.src = "img/1-gold.png";
+        diceTwo.src = "img/2-gold.png";
+        diceThree.src = "img/3-gold.png";
+        diceFour.src = "img/4-gold.png";
+        diceFive.src = "img/5-gold.png";
+        diceSix.src = "img/6-gold.png";
+        diceOneGuess.src = "img/1-gold.png";
+        diceTwoGuess.src = "img/2-gold.png";
+        diceThreeGuess.src = "img/3-gold.png";
+        diceFourGuess.src = "img/4-gold.png";
+        diceFiveGuess.src = "img/5-gold.png";
+        diceSixGuess.src = "img/6-gold.png";
     } else {
         alert('Not enough points!!');
     }
@@ -115,17 +133,17 @@ function startLower() {
 
 function cycleLower() {
     randomDice = Math.round(Math.random() * 6);
-    diceGuess[currentDiceGuessLower].classList.remove('active-guess');
-    currentDiceGuessLower = (randomDice) % totalImagesGuess;
-    diceGuess[currentDiceGuessLower].classList.add('active-guess');
+    diceGuess[currentDiceGuess].classList.remove('active-guess');
+    currentDiceGuess = (randomDice) % totalImagesGuess;
+    diceGuess[currentDiceGuess].classList.add('active-guess');
 }
 
 
 function guessLower() {
-    if (currentDiceGuessLower < currentDice) {
+    if (currentDiceGuess < currentDice) {
         console.log('You win!');
         points = points + 10;
-    } else if (currentDiceGuessLower === currentDice) {
+    } else if (currentDiceGuess === currentDice) {
         console.log('Tie!');
     } else {
         console.log('You lose :(');
@@ -146,16 +164,16 @@ function startHigher() {
 
 function cycleHigher() {
     randomDice = Math.round(Math.random() * 6);
-    diceGuess[currentDiceGuessHigher].classList.remove('active-guess');
-    currentDiceGuessHigher = (randomDice) % totalImagesGuess;
-    diceGuess[currentDiceGuessHigher].classList.add('active-guess');
+    diceGuess[currentDiceGuess].classList.remove('active-guess');
+    currentDiceGuess = (randomDice) % totalImagesGuess;
+    diceGuess[currentDiceGuess].classList.add('active-guess');
 }
 
 function guessHigher() {
-    if (currentDice < currentDiceGuessHigher) {
+    if (currentDice < currentDiceGuess) {
         console.log('You win!');
         points = points + 10;
-    } else if (currentDiceGuessHigher === currentDice) {
+    } else if (currentDiceGuess === currentDice) {
         console.log('Tie!');
     } else {
         console.log('You lose :(');
