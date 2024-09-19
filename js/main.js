@@ -1,5 +1,5 @@
-let currentDice = Math.round(Math.random() * 6);
-let currentDiceGuess = Math.round(Math.random() * 6);
+let currentDice = Math.round(Math.random() * (6 - 1) + 1);
+let currentDiceGuess = Math.round(Math.random() * (6 - 1) + 1);
 const dice = document.querySelectorAll('.dice img');
 const diceGuess = document.querySelectorAll('.dice-guess img');
 const totalImages = dice.length;
@@ -12,7 +12,8 @@ let pointSystem = document.querySelector('.point').innerHTML = points;
 const upgradeBackgroundYellow = 150;
 const upgradeBackgroundGreen = 200;
 const upgradeBackgroundMulti = 250;
-const upgradeDice = 250;
+const upgradeDiceGold = 350;
+const upgradeDiceBlue = 300;
 let ownMulti = false;
 let ownGreen = false;
 let ownGold = false;
@@ -25,7 +26,8 @@ document.querySelector('.return-red').addEventListener('click', () => upgradeBac
 document.querySelector('.start-button').addEventListener('click', startCycling);
 document.querySelector('.guess-lower').addEventListener('click', startLower);
 document.querySelector('.guess-higher').addEventListener('click', startHigher);
-document.querySelector('.buy-dice').addEventListener('click', buyDice);
+document.querySelector('.buy-dice-gold').addEventListener('click', () => buyDice('gold'));
+document.querySelector('.buy-dice-blue').addEventListener('click', () => buyDice('blue'));
 document.querySelector('.popup').addEventListener('click', openPopup);
 
 
@@ -68,7 +70,7 @@ function upgradeBackground(color) {
     }
 }
 
-function buyDice() {
+function buyDice(color) {
     const diceOne = document.querySelector('.dice-one');
     const diceTwo = document.querySelector('.dice-two');
     const diceThree = document.querySelector('.dice-three');
@@ -81,8 +83,8 @@ function buyDice() {
     const diceFourGuess = document.querySelector('.dice-four-Guess');
     const diceFiveGuess = document.querySelector('.dice-five-Guess');
     const diceSixGuess = document.querySelector('.dice-six-Guess');
-    if (points >= upgradeDice) {
-        points = points - upgradeDice;
+    if (color === 'gold' && points >= upgradeDiceGold) {
+        points = points - upgradeDiceGold;
         updatePoints();
         diceOne.src = "img/1-gold.png";
         diceTwo.src = "img/2-gold.png";
@@ -96,8 +98,23 @@ function buyDice() {
         diceFourGuess.src = "img/4-gold.png";
         diceFiveGuess.src = "img/5-gold.png";
         diceSixGuess.src = "img/6-gold.png";
+    } else if (color === 'blue' && points >= upgradeDiceBlue) {
+        points = points - upgradeDiceBlue;
+        diceOne.src = "img/1-blue.png"
+        diceTwo.src = "img/2-blue.png";
+        diceThree.src = "img/3-blue.png";
+        diceFour.src = "img/4-blue.png";
+        diceFive.src = "img/5-blue.png";
+        diceSix.src = "img/6-blue.png";
+        diceOneGuess.src = "img/1-blue.png";
+        diceTwoGuess.src = "img/2-blue.png";
+        diceThreeGuess.src = "img/3-blue.png";
+        diceFourGuess.src = "img/4-blue.png";
+        diceFiveGuess.src = "img/5-blue.png";
+        diceSixGuess.src = "img/6-blue.png";
+        updatePoints();
     } else {
-        alert('Not enough points!!');
+        alert('Not enough points!!')
     }
 }
 
