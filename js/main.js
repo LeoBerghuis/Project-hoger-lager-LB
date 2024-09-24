@@ -253,4 +253,12 @@ function openPopup() {
 }
 
 
-function 
+function example() {
+    // maak een knop die example aanroept als ik er op druk
+
+    // verander de src van de img 'rolling' naar een andere die
+
+    // zorg er nu voor dat de src wordt ingesteld op img/white_dice_1-removebg-preview.png waarbij 1 het getal is wat is gegooid
+
+
+}
