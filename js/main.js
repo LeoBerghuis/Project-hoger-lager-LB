@@ -49,7 +49,7 @@ function upgradeBackground(color) {
             updatePoints();
             document.body.style.backgroundImage = 'url("../img/green.png")';
             ownGreen = true;
-        }    
+        }
     } else if (color === 'multi' && points >= upgradeBackgroundMulti) {
         if (ownMulti === true) {
             alert('You already own this!');
@@ -120,7 +120,7 @@ function startCycling() {
         clearInterval(intervalId);
         startGame = true;
     }, 4000);
-    
+
 }
 
 function startLower() {
@@ -136,7 +136,7 @@ function startLower() {
             updatePoints();
             startGame = false;
         }, 4000);
-    }    
+    }
 }
 
 function cycleLower() {
@@ -163,7 +163,7 @@ function startHigher() {
 
     if (startGame === false) {
         alert('Start game first!!')
-    } else{
+    } else {
         startGuessHigh = setInterval(cycleHigher, 100)
         setTimeout(function () {
             clearInterval(startGuessHigh);
@@ -173,7 +173,7 @@ function startHigher() {
         }, 4000);
     }
 
-    
+
 }
 
 function cycleHigher() {
@@ -195,6 +195,6 @@ function guessHigher() {
     }
 }
 function openPopup() {
-  const popup = document.getElementById("myPopup");
-  popup.classList.toggle("show");
+    const popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
 }
