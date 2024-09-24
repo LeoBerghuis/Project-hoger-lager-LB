@@ -39,25 +39,22 @@ body {
 }
 
 .dice-guess .active-guess {
-    opacity: 1;  
+    display: block;
 }
 
 .dice-img  {
-    opacity: 0;
+    display: none;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .dice-guess-img {
-    opacity: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: none;
 }
 
 .dice, .active {
-    opacity: 1;
+    display: block;
 }
 
 .popup {
