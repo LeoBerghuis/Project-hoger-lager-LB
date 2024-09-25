@@ -9,6 +9,23 @@
 </head>
 
 <body>
+    <header>
+        <div class="popup" onclick="openPopup()">Upgrades
+            <span class="popuptext" id="myPopup">
+                <div>
+                    <button class="buy-background-yellow" onclick="upgradeBackground('yellow')">Upgrade to Gold
+                        Background</button>
+                    <button class="buy-background-green" onclick="upgradeBackground('green')">Upgrade to Green
+                        Background</button>
+                    <button class="buy-background-multi" onclick="upgradeBackground('multi')">Upgrade to Multi Colored
+                        Background</button>
+                    <button class="return-red" onclick="upgradeBackground('red')">Return to red background</button>
+                    <button class="buy-dice-gold" onclick="buyDice('gold')">Upgrade to gold dice</button>
+                    <button class="buy-dice-blue" onclick="buyDice('blue')">Upgrade to blue dice</button>
+                </div>
+            </span>
+        </div>
+    </header>
     <main>
         <div>
             <button onclick="example()">Change</button>
@@ -47,21 +64,7 @@
         <button class="guess-higher" onclick="startHigher()">Guess higher</button>
 
         <!--De code hieronder is voor de shop button-->
-        <div class="popup" onclick="openPopup()">Upgrades
-            <span class="popuptext" id="myPopup">
-                <div>
-                    <button class="buy-background-yellow" onclick="upgradeBackground('yellow')">Upgrade to Gold
-                        Background</button>
-                    <button class="buy-background-green" onclick="upgradeBackground('green')">Upgrade to Green
-                        Background</button>
-                    <button class="buy-background-multi" onclick="upgradeBackground('multi')">Upgrade to Multi Colored
-                        Background</button>
-                    <button class="return-red" onclick="upgradeBackground('red')">Return to red background</button>
-                    <button class="buy-dice-gold" onclick="buyDice('gold')">Upgrade to gold dice</button>
-                    <button class="buy-dice-blue" onclick="buyDice('blue')">Upgrade to blue dice</button>
-                </div>
-            </span>
-        </div>
+     
     </main>
 
     <script src="js/main.js"></script>

@@ -170,7 +170,6 @@ function startLower() {
                 alert('Start game first!');
             } else {
                 intervalId = setInterval(cycleLower, 100);
-
                 setTimeout(function () {
                     clearInterval(intervalId);
                     guessLower();
@@ -247,6 +246,7 @@ function guessHigher() {
         points = points - 5;
     }
 }
+
 function openPopup() {
     const popup = document.getElementById("myPopup");
     popup.classList.toggle("show");
