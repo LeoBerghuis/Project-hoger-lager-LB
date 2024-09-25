@@ -141,9 +141,9 @@ function updateDiceGold() {
 
 function cycleDice() {
     randomDice = Math.round(Math.random() * (6 - 1) + 1);
-    dice[currentDice].classList.remove('active');
+    dice[currentDice]?.classList?.remove('active');
     currentDice = (randomDice) % totalImages;
-    dice[currentDice].classList.add('active');
+    dice[currentDice]?.classList?.add('active');
 }
 
 function updatePoints() {
@@ -191,9 +191,9 @@ function startLower() {
 
 function cycleLower() {
     randomDice = Math.round(Math.random() * (6 - 1) + 1);
-    diceGuess[currentDiceGuess].classList.remove('active-guess');
+    diceGuess[currentDiceGuess]?.classList?.remove('active-guess');
     currentDiceGuess = (randomDice) % totalImagesGuess;
-    diceGuess[currentDiceGuess].classList.add('active-guess');
+    diceGuess[currentDiceGuess]?.classList?.add('active-guess');
 }
 
 
@@ -235,9 +235,9 @@ function startHigher() {
 
 function cycleHigher() {
     randomDice = Math.round(Math.random() * 6);
-    diceGuess[currentDiceGuess].classList.remove('active-guess');
+    diceGuess[currentDiceGuess]?.classList?.remove('active-guess');
     currentDiceGuess = (randomDice) % totalImagesGuess;
-    diceGuess[currentDiceGuess].classList.add('active-guess');
+    diceGuess[currentDiceGuess]?.classList?.add('active-guess');
 }
 
 function guessHigher() {
