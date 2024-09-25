@@ -170,7 +170,7 @@ function startLower() {
                 alert('Start game first!');
             } else {
                 intervalId = setInterval(cycleLower, 100);
-    
+
                 setTimeout(function () {
                     clearInterval(intervalId);
                     guessLower();
@@ -206,27 +206,27 @@ function guessLower() {
 }
 
 function startHigher() {
- if (gameStartedLower === true) {
-    console.log('You already started guessing lower!!');
- } else {
-    if (gameStartedHigher === false) {
-        gameStartedHigher = true;
-        if (startGame === false) {
-            alert('Start game first!!');
-        } else {
-            intervalId = setInterval(cycleHigher, 100)
-            setTimeout(function () {
-                clearInterval(intervalId);
-                guessHigher();
-                updatePoints();
-                startGame = false;
-                gameStartedHigher = false;
-            }, 4000);
-        }
+    if (gameStartedLower === true) {
+        console.log('You already started guessing lower!!');
     } else {
-        console.log('You already started guessing!');
+        if (gameStartedHigher === false) {
+            gameStartedHigher = true;
+            if (startGame === false) {
+                alert('Start game first!!');
+            } else {
+                intervalId = setInterval(cycleHigher, 100)
+                setTimeout(function () {
+                    clearInterval(intervalId);
+                    guessHigher();
+                    updatePoints();
+                    startGame = false;
+                    gameStartedHigher = false;
+                }, 4000);
+            }
+        } else {
+            console.log('You already started guessing!');
+        }
     }
- }
 }
 
 function cycleHigher() {
