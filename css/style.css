@@ -49,14 +49,11 @@ header {
 }
 
 .dice-img  {
-    display: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  position: absolute;
 }
 
 .dice-guess-img {
-    display: none;
+    position: absolute;
 }
 
 .dice, .active {
@@ -105,5 +102,8 @@ header {
     animation: fadeIn 1s
   }
 
+  .inv{
+    opacity: 0;
+  }
 
   
