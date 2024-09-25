@@ -57,15 +57,12 @@ footer {
   display: block;
 }
 
-.dice-img {
-  display: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.dice-img  {
+  position: absolute;
 }
 
 .dice-guess-img {
-  display: none;
+    position: absolute;
 }
 
 .dice,
@@ -110,8 +107,14 @@ footer {
   }
   
 
-.popup .show {
-  visibility: visible;
-  -webkit-animation: fadeIn 1s;
-  animation: fadeIn 1s
-}
+  .popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s
+  }
+
+  .inv{
+    opacity: 0;
+  }
+
+  
