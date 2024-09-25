@@ -7,6 +7,7 @@ const totalImagesGuess = diceGuess.length;
 let intervalId;
 let points = localStorage.getItem('points') ? parseInt(localStorage.getItem('points')) : 0;
 let pointSystem = document.querySelector('.point').innerText = points;
+let highScore = document.querySelector('.highscore').innerText = points;
 const upgradeBackgroundYellow = 150;
 const upgradeBackgroundGreen = 200;
 const upgradeBackgroundMulti = 250;
@@ -149,6 +150,11 @@ function cycleDice() {
 function updatePoints() {
     pointSystem = document.querySelector('.point').innerText = points;
     localStorage.setItem('points', points);
+}
+
+function highScorePoints() {
+    highScore = document.querySelector('.highscore').innerText = points;
+    localStorage.setItem('highscore', points);
 }
 
 function startCycling() {
