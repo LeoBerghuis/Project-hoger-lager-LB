@@ -10,22 +10,33 @@
 
 <body>
     <main>
+        <div>
+            <button onclick="example()">Change</button>
+            <img src="img/white_dice_1-removebg-preview.png" id="rolling">
+        </div>
+
         <div class="center">
             <div class="dice-img">
-                <img src="img/white_dice_1-removebg-preview.png" class="active" alt="Dice 1" title="Dice 1">
+                <img src="img/white_dice_1-removebg-preview.png" class="active dice-one" alt="Dice 1" title="Dice 1">
                 <img src="img/white_dice_2-removebg-preview.png" class="dice-two" alt="Dice 2" title="Dice 2">
                 <img src="img/white_dice_3-removebg-preview.png" class="dice-three" alt="Dice 3" title="Dice 3">
                 <img src="img/white_dice_4-removebg-preview.png" class="dice-four" alt="Dice 4" title="Dice 4">
                 <img src="img/white_dice_5-removebg-preview.png" class="dice-five" alt="Dice 5" title="Dice 5">
                 <img src="img/white_dice_6-removebg-preview.png" class="dice-six" alt="Dice 6" title="Dice 6">
-            </div>            
+            </div>
             <div class="dice-guess-img">
-                <img src="img/white_dice_1-removebg-preview.png" class="active-guess dice-one-Guess" alt="Dice guess 1" title="Dice 1">
-                <img src="img/white_dice_2-removebg-preview.png" alt="Dice guess 2" class="dice-two-Guess" title="Dice 2">
-                <img src="img/white_dice_3-removebg-preview.png" alt="Dice guess 3" class="dice-three-Guess" title="Dice 3">
-                <img src="img/white_dice_4-removebg-preview.png" alt="Dice guess 4" class="dice-four-Guess" title="Dice 4">
-                <img src="img/white_dice_5-removebg-preview.png" alt="Dice guess 5" class="dice-five-Guess" title="Dice 5">
-                <img src="img/white_dice_6-removebg-preview.png" alt="Dice guess 6" class="dice-six-Guess" title="Dice 6">`
+                <img src="img/white_dice_1-removebg-preview.png" class="active-guess dice-one-Guess" alt="Dice guess 1"
+                    title="Dice 1">
+                <img src="img/white_dice_2-removebg-preview.png" alt="Dice guess 2" class="dice-two-Guess"
+                    title="Dice 2">
+                <img src="img/white_dice_3-removebg-preview.png" alt="Dice guess 3" class="dice-three-Guess"
+                    title="Dice 3">
+                <img src="img/white_dice_4-removebg-preview.png" alt="Dice guess 4" class="dice-four-Guess"
+                    title="Dice 4">
+                <img src="img/white_dice_5-removebg-preview.png" alt="Dice guess 5" class="dice-five-Guess"
+                    title="Dice 5">
+                <img src="img/white_dice_6-removebg-preview.png" alt="Dice guess 6" class="dice-six-Guess"
+                    title="Dice 6">`
             </div>
         </div>
         <div class="points">
@@ -34,18 +45,23 @@
         <button class="start-button" onclick="startCycling()">Start game</button>
         <button class="guess-lower" onclick="startLower()">Guess lower</button>
         <button class="guess-higher" onclick="startHigher()">Guess higher</button>
-        
-            <!--De code hieronder is voor de shop button-->
-            <div class="popup" onclick="openPopup()">Upgrades
-                <span class="popuptext" id="myPopup"><div>
-                    <button class="buy-background-yellow" onclick="upgradeBackground('yellow')">Upgrade to Gold Background</button>
-                    <button class="buy-background-green" onclick="upgradeBackground('green')">Upgrade to Green Background</button>
-                    <button class="buy-background-multi" onclick="upgradeBackground('multi')">Upgrade to Multi Colored Background</button>
+
+        <!--De code hieronder is voor de shop button-->
+        <div class="popup" onclick="openPopup()">Upgrades
+            <span class="popuptext" id="myPopup">
+                <div>
+                    <button class="buy-background-yellow" onclick="upgradeBackground('yellow')">Upgrade to Gold
+                        Background</button>
+                    <button class="buy-background-green" onclick="upgradeBackground('green')">Upgrade to Green
+                        Background</button>
+                    <button class="buy-background-multi" onclick="upgradeBackground('multi')">Upgrade to Multi Colored
+                        Background</button>
                     <button class="return-red" onclick="upgradeBackground('red')">Return to red background</button>
                     <button class="buy-dice-gold" onclick="buyDice('gold')">Upgrade to gold dice</button>
                     <button class="buy-dice-blue" onclick="buyDice('blue')">Upgrade to blue dice</button>
-                </div></span>
-            </div>
+                </div>
+            </span>
+        </div>
     </main>
 
     <script src="js/main.js"></script>
