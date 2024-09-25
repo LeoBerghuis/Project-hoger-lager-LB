@@ -1,14 +1,14 @@
 body {
-  background-image: url(../img/red.png);
+  background-image: url('../img/red.png');
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-size: 100%;
+  background-size: cover;
   background-color: #cccccc;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 0px;
+  margin: 0;
+  flex-direction: column;
   height: 100vh;
   overflow: hidden;
 }
@@ -17,15 +17,20 @@ header {
   width: 100vw;
   display: flex;
   justify-content: flex-end;
+  margin-top: 2em;
 }
 
 .center {
   position: relative;
-  width: 40em;
+  width: 20em;
   height: 20em;
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 2px solid white;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 1em;
 }
 
 .points {
@@ -44,30 +49,31 @@ footer {
   width: 100vw;
   display: flex;
   justify-content: flex-end;
-  margin-top: 8em;
+  margin-top: 5em;
   padding-right: 1em; 
 }
 
-.dice-guess {
-  margin-left: 5em;
-  display: flex;
+.dice-img, .dice-guess-img {
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
-.dice-guess .active-guess {
-  display: block;
-}
-
-.dice-img  {
+.dice-img img, .dice-guess-img img {
   position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: 5em;
+  height: 5em;
+  opacity: 0;
 }
 
-.dice-guess-img {
-    position: absolute;
-}
 
-.dice,
-.active {
-  display: block;
+.dice-img img.active, .dice-guess-img img.active-guess {
+  opacity: 1;
 }
 
 .popup {
@@ -113,8 +119,5 @@ footer {
     animation: fadeIn 1s
   }
 
-  .inv{
-    opacity: 0;
-  }
 
   
