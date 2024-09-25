@@ -47,6 +47,7 @@ function upgradeBackground(color) {
             updatePoints();
             document.body.style.backgroundImage = 'url("../img/yellow.png")';
             ownGold = true;
+            document.querySelector(".buy-background-yellow").innerText = "Gold backround | owned"
         }
     } else if (color === 'green' && points >= upgradeBackgroundGreen) {
         if (ownGreen === true) {
@@ -57,6 +58,7 @@ function upgradeBackground(color) {
             updatePoints();
             document.body.style.backgroundImage = 'url("../img/green.png")';
             ownGreen = true;
+            document.querySelector(".buy-background-green").innerText = "Green backround | owned"
         }
     } else if (color === 'multi' && points >= upgradeBackgroundMulti) {
         if (ownMulti === true) {
@@ -67,6 +69,7 @@ function upgradeBackground(color) {
             updatePoints();
             document.body.style.backgroundImage = 'url("../img/multi.png")';
             ownMulti = true;
+            document.querySelector(".buy-background-multi").innerText = "multicolored backround | owned"
         }
     } else if (ownRed === true && color === 'red') {
         document.body.style.backgroundImage = 'url("../img/red.png")';
@@ -87,6 +90,7 @@ function buyDice(color) {
             updatePoints();
             updateDiceGold();
             ownDiceGold = true;
+            document.querySelector(".buy-dice-gold").innerText = "Gold dice | owned"
         }
     } else if (color === 'blue' && points >= upgradeDiceBlue) {
         if (ownDiceBlue === true) {
@@ -97,6 +101,7 @@ function buyDice(color) {
             updateDiceBlue();
             updatePoints();
             ownDiceBlue = true;
+            document.querySelector(".buy-dice-blue").innerText = "Blue dice | owned"
         }
     } else {
         alert('Not enough points!!');
