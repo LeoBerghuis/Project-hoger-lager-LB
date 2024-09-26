@@ -64,6 +64,7 @@ function startCycling() {
 
 function cycleDice() {
     let randomDice = Math.round(Math.random() * (6 - 1) + 1);
+
     dice[currentDice].classList.remove('active');
     currentDice = (randomDice) % totalImages;
     dice[currentDice].classList.add('active');
@@ -172,15 +173,17 @@ function openPopup() {
 
 function upgradeBackground(color) {
     if (color === 'yellow' && points >= upgradeBackgroundYellow) {
-        if (ownGold === true) {
+        if (localStorage.getItem('goldOwned', true)) {
             alert('You already own this!');
             document.body.style.backgroundImage = 'url("../img/yellow.png")';
+            document.querySelector(".buy-background-yellow").innerText = "Gold backround | owned";
         } else {
             points = points - upgradeBackgroundYellow;
             updatePoints();
             document.body.style.backgroundImage = 'url("../img/yellow.png")';
             ownGold = true;
             document.querySelector(".buy-background-yellow").innerText = "Gold backround | owned";
+            localStorage.setItem('goldOwned', true);
         }
     } else if (color === 'green' && points >= upgradeBackgroundGreen) {
         if (ownGreen === true) {
