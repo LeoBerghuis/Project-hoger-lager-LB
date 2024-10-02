@@ -36,127 +36,17 @@ const diceThreeGuess = document.querySelector('.dice-three-Guess');
 const diceFourGuess = document.querySelector('.dice-four-Guess');
 const diceFiveGuess = document.querySelector('.dice-five-Guess');
 const diceSixGuess = document.querySelector('.dice-six-Guess');
+const buyGold = document.querySelector('.buy-background-yellow').addEventListener('click', () => upgradeBackground('yellow'));
+const buyGreen = document.querySelector('.buy-background-green').addEventListener('click', () => upgradeBackground('green'));
+const buyMulti = document.querySelector('.buy-background-multi').addEventListener('click', () => upgradeBackground('multi'));
+const rtrnRed = document.querySelector('.return-red').addEventListener('click', () => upgradeBackground('red'));
+const buyDiceBlue = document.querySelector('.buy-dice-blue').addEventListener('click', () => buyDice('blue'));
+const buydiceGold = document.querySelector('.buy-dice-gold').addEventListener('click', () => buyDice('gold'));
+const popup = document.querySelector('.popup').addEventListener('click', openPopup);
+const startBtn = document.querySelector('.start-button').addEventListener('click', startCycling);
+const startLowerBtn = document.querySelector('.guess-lower').addEventListener('click', startLower);
+const startHigherBtn = document.querySelector('.guess-higher').addEventListener('click', startHigher);
 
-
-function upgradeBackground(color) {
-    if (color === 'yellow' && points >= upgradeBackgroundYellow) {
-        if (ownGold === true) {
-            alert('You already own this!');
-            document.body.style.backgroundImage = 'url("../img/yellow.png")';
-        } else {
-            points = points - upgradeBackgroundYellow;
-            updatePoints();
-            document.body.style.backgroundImage = 'url("../img/yellow.png")';
-            ownGold = true;
-            document.querySelector(".buy-background-yellow").innerText = "Gold backround | owned"
-            localStorage.getItem('')
-        }
-    } else if (color === 'green' && points >= upgradeBackgroundGreen) {
-        if (ownGreen === true) {
-            alert('You already own this!');
-            document.body.style.backgroundImage = 'url("../img/green.png")';
-        } else {
-            points = points - upgradeBackgroundGreen;
-            updatePoints();
-            document.body.style.backgroundImage = 'url("../img/green.png")';
-            ownGreen = true;
-            document.querySelector(".buy-background-green").innerText = "Green backround | owned"
-        }
-    } else if (color === 'multi' && points >= upgradeBackgroundMulti) {
-        if (ownMulti === true) {
-            alert('You already own this!');
-            document.body.style.backgroundImage = 'url("../img/multi.png")';
-        } else {
-            points = points - upgradeBackgroundMulti;
-            updatePoints();
-            document.body.style.backgroundImage = 'url("../img/multi.png")';
-            ownMulti = true;
-            document.querySelector(".buy-background-multi").innerText = "multicolored backround | owned"
-        }
-    } else if (ownRed === true && color === 'red') {
-        document.body.style.backgroundImage = 'url("../img/red.png")';
-    } else {
-        alert('Not enough points!!');
-        document.body.style.backgroundImage = 'url("../img/red.png")';
-    }
-}
-
-function buyDice(color) {
-
-    if (color === 'gold' && points >= upgradeDiceGold) {
-        if (ownDiceGold === true) {
-            alert('You already own this!!');
-            updateDiceGold();
-        } else {
-            points = points - upgradeDiceGold;
-            updatePoints();
-            updateDiceGold();
-            ownDiceGold = true;
-            document.querySelector(".buy-dice-gold").innerText = "Gold dice | owned"
-        }
-    } else if (color === 'blue' && points >= upgradeDiceBlue) {
-        if (ownDiceBlue === true) {
-            alert('You aready own this!!');
-            updateDiceBlue();
-        } else {
-            points = points - upgradeDiceBlue;
-            updateDiceBlue();
-            updatePoints();
-            ownDiceBlue = true;
-            document.querySelector(".buy-dice-blue").innerText = "Blue dice | owned"
-        }
-    } else {
-        alert('Not enough points!!');
-        updateDiceBlue();
-    }
-}
-
-function updateDiceBlue() {
-    diceOne.src = "img/1-blue.png";
-    diceTwo.src = "img/2-blue.png";
-    diceThree.src = "img/3-blue.png";
-    diceFour.src = "img/4-blue.png";
-    diceFive.src = "img/5-blue.png";
-    diceSix.src = "img/6-blue.png";
-    diceOneGuess.src = "img/1-blue.png";
-    diceTwoGuess.src = "img/2-blue.png";
-    diceThreeGuess.src = "img/3-blue.png";
-    diceFourGuess.src = "img/4-blue.png";
-    diceFiveGuess.src = "img/5-blue.png";
-    diceSixGuess.src = "img/6-blue.png";
-}
-
-function updateDiceGold() {
-    diceOne.src = "img/1-gold.png";
-    diceTwo.src = "img/2-gold.png";
-    diceThree.src = "img/3-gold.png";
-    diceFour.src = "img/4-gold.png";
-    diceFive.src = "img/5-gold.png";
-    diceSix.src = "img/6-gold.png";
-    diceOneGuess.src = "img/1-gold.png";
-    diceTwoGuess.src = "img/2-gold.png";
-    diceThreeGuess.src = "img/3-gold.png";
-    diceFourGuess.src = "img/4-gold.png";
-    diceFiveGuess.src = "img/5-gold.png";
-    diceSixGuess.src = "img/6-gold.png";
-}
-
-function cycleDice() {
-    let randomDice = Math.round(Math.random() * (6 - 1) + 1);
-    dice[currentDice].classList.remove('active');
-    currentDice = (randomDice) % totalImages;
-    dice[currentDice].classList.add('active');
-}
-
-function updatePoints() {
-    pointSystem = document.querySelector('.point').innerText = points;
-    localStorage.setItem('points', points);
-}
-
-function highScorePoints() {
-    highScore = document.querySelector('.highscore').innerText = points;
-    localStorage.setItem('highscore', points);
-}
 
 function startCycling() {
     if (gameStarted === false) {
@@ -182,7 +72,7 @@ function cycleDice() {
 
 function startLower() {
     if (gameStartedHigher === true) {
-        console.log('You already started geussing higher!!');
+        console.log('You already started guessing higher!!');
     } else {
         if (gameStartedLower === false) {
             gameStartedLower = true;
