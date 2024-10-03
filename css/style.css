@@ -145,6 +145,7 @@ header {
   font-weight: bold;
   background-color: rgba(49, 158, 16, 0.7); 
   border: 2px solid white;
+  cursor: pointer;
 }
 .guess-buttons{
   display: flex;
@@ -163,6 +164,7 @@ header {
   font-weight: bold;
   background-color: rgba(49, 158, 16, 0.7); 
   border: 2px solid white;
+  cursor: pointer;
 }
 .guess-higher{
   width: 175px;
@@ -175,4 +177,5 @@ header {
   font-weight: bold;
   background-color: rgba(49, 158, 16, 0.7); 
   border: 2px solid white;
+  cursor: pointer;
 }
