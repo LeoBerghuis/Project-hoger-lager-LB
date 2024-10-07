@@ -5,174 +5,182 @@ body {
   background-size: cover;
   background-color: #cccccc;
   display: flex;
-
   align-items: center;
+  justify-content: center;
   margin: 0;
-  flex-direction: column;
   height: 100vh;
   overflow: hidden;
+  flex-direction: column;
 }
 
 header {
   width: 100vw;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
+  padding: 10px;
 }
 
-.center {
-  position: relative;
-  width: 20em;
-  height: 20em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 2px solid white;
-  border-radius: 10px;
-  background-color: rgba(0, 0, 0, 0.6);
-  padding: 1em;
-}
 .points {
   display: flex;
   flex-direction: column;
-  justify-content: space-between 10px;
+  justify-content: space-between;
   color: white;
-  font-size: 1.8em; 
+  font-size: 1.8em;
   font-weight: bold;
-  background-color: rgba(49, 158, 16, 0.7); 
+  background-color: rgba(49, 158, 16, 0.9);
   padding: 0.5em 1em;
   border-radius: 10px;
   border: 2px solid white;
   margin-left: 10px;
-  margin-top: 10px;
 }
-.points p {
-  margin: 0em;
-}
+
 .high-score {
-  font-size: 0.8em;
+  font-size: 0.9em;
   font-weight: 300;
-  margin: 0em;
-  padding-top: 1em;
-}
-.dice-img, .dice-guess-img {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-.dice-img img, .dice-guess-img img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-  width: 5em;
-  height: 5em;
-  opacity: 0;
-}
-.dice-img img.active, .dice-guess-img img.active-guess {
-  opacity: 1;
+  margin-top: 5px;
 }
 
 .popup {
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
-    color: white;
-    border: solid 1px white;
-    margin-right: 1.5em;
-  }
-  
-  .popup .popuptext {
-    visibility: hidden;
-    width: 250px;
-    height: 250px;
-    background-color: #f77e71;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 8px 0;
-    position: absolute;
-    z-index: 1;
-    top: 125%;
-    right: 30%;
-    margin-left: -80px;
-  }
-  
-  .popup .popuptext::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: #555 transparent transparent transparent;
-  }
-  
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  color: white;
+  border: solid 1px white;
+  margin-right: 1.5em;
+}
 
-  .popup .show {
-    visibility: visible;
-    -webkit-animation: fadeIn 1s;
-    animation: fadeIn 1s
+.popup .popuptext {
+  visibility: hidden;
+  width: 250px;
+  height: 250px;
+  background-color: #f77e71;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  top: 125%;
+  right: 30%;
+  margin-left: -80px;
+}
+
+.popup .popuptext.show {
+  visibility: visible;
+  animation: fadeIn 1s;
+}
+
+.center {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 2em;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  width: 90%;
+  max-width: 500px;
+  height: 100%;
+  max-height: 400px;
+  flex-direction: column;
+}
+
+.dice-img,
+.dice-guess-img {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 6em;
+  height: 6em;
+  margin-bottom: 20px;
+}
+
+.dice-img img,
+.dice-guess-img img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.dice-img img.active,
+.dice-guess-img img.active-guess {
+  opacity: 1;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
+}
+
+.start-button,
+.guess-buttons button {
+  width: 100%;
+  max-width: 300px;
+  padding: 1em;
+  margin-top: 10px;
+  color: white;
+  font-size: 1.2em;
+  font-weight: bold;
+  background-color: #F4B400;
+  border: 2px solid white;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.start-button:hover,
+.guess-buttons button:hover {
+  background-color: #FFD700;
+}
+
+.guess-buttons {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  max-width: 300px;
+}
+
+@media screen and (max-width: 768px) {
+  .points {
+    font-size: 1.2em;
+    padding: 0.5em;
   }
 
-  .upgrades {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    color: white;
-    font-size: 2.5em; 
-    font-weight: bold;
-    background-color: rgba(49, 158, 16, 0.7); 
-    padding: 0.5em 1em;
-    border-radius: 10px;
-    border: 2px solid white;
-    margin-right: 10px;
-    margin-top: 10px;
+  .high-score {
+    font-size: 0.7em;
   }
-.start-button{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 355px;
-  height: 5em;
-  margin-top: 5px;
-  border-radius: 10px;
-  color: white;
-  font-size: 1.2em; 
-  font-weight: bold;
-  background-color: rgba(49, 158, 16, 0.7); 
-  border: 2px solid white;
+
+  .start-button,
+  .guess-buttons button {
+    font-size: 1em;
+    padding: 0.8em;
+  }
+
+  .center {
+    padding: 1.5em;
+    max-width: 90%;
+    height: auto;
+  }
+
+  .dice-img,
+  .dice-guess-img {
+    width: 4em;
+    height: 4em;
+  }
 }
-.guess-buttons{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
-.guess-lower{
-  width: 175px;
-  height: 5em;
-  margin-top: 5px;
-  margin-right: 2.5px;
-  border-radius: 10px;
-  color: white;
-  font-size: 1.2em; 
-  font-weight: bold;
-  background-color: rgba(49, 158, 16, 0.7); 
-  border: 2px solid white;
-}
-.guess-higher{
-  width: 175px;
-  height: 5em;
-  margin-top: 5px;
-  margin-left: 2.5px;
-  border-radius: 10px;
-  color: white;
-  font-size: 1.2em; 
-  font-weight: bold;
-  background-color: rgba(49, 158, 16, 0.7); 
-  border: 2px solid white;
+
+@media screen and (min-width: 768px) {
+  body {
+    flex-direction: column;
+  }
+
+  .center {
+    width: 60%;
+    height: 50%;
+  }
+
+  .start-button,
+  .guess-buttons button {
+    font-size: 1.5em;
+  }
 }

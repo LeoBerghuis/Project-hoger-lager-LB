@@ -10,7 +10,7 @@ let highScore = document.querySelector('.highscore').innerText = points;
 const upgrades = [150, 200, 250, 350, 300];
 const ownBase = true;
 let gameStart = [false, false, false, false];
-const allDice = [document.querySelector('.dice-one'), document.querySelector('.dice-two'), document.querySelector('.dice-three'), document.querySelector('.dice-four'), document.querySelector('.dice-five'), document.querySelector('.dice-six'),document.querySelector('.dice-one-Guess'),document.querySelector('.dice-two-Guess'),document.querySelector('.dice-three-Guess'), document.querySelector('.dice-four-Guess'),document.querySelector('.dice-five-Guess'), document.querySelector('.dice-six-Guess')];
+const allDice = [document.querySelector('.dice-one'), document.querySelector('.dice-two'), document.querySelector('.dice-three'), document.querySelector('.dice-four'), document.querySelector('.dice-five'), document.querySelector('.dice-six'), document.querySelector('.dice-one-Guess'), document.querySelector('.dice-two-Guess'), document.querySelector('.dice-three-Guess'), document.querySelector('.dice-four-Guess'), document.querySelector('.dice-five-Guess'), document.querySelector('.dice-six-Guess')];
 const buyGold = document.querySelector('.buy-background-yellow').addEventListener('click', () => upgradeBackground('yellow'));
 const buyGreen = document.querySelector('.buy-background-green').addEventListener('click', () => upgradeBackground('green'));
 const buyMulti = document.querySelector('.buy-background-multi').addEventListener('click', () => upgradeBackground('multi'));
@@ -18,9 +18,9 @@ const rtrnRed = document.querySelector('.return-red').addEventListener('click', 
 const buyDiceBlue = document.querySelector('.buy-dice-blue').addEventListener('click', () => buyDice('blue'));
 const buydiceGold = document.querySelector('.buy-dice-gold').addEventListener('click', () => buyDice('gold'));
 const popup = document.querySelector('.popup').addEventListener('click', openPopup);
-const startBtn = document.querySelector('.start-button').addEventListener('click',() => startCycling('start'));
-const startLowerBtn = document.querySelector('.guess-lower').addEventListener('click',() => startCycling('lower'));
-const startHigherBtn = document.querySelector('.guess-higher').addEventListener('click',() => startCycling('higher'));
+const startBtn = document.querySelector('.start-button').addEventListener('click', () => startCycling('start'));
+const startLowerBtn = document.querySelector('.guess-lower').addEventListener('click', () => startCycling('lower'));
+const startHigherBtn = document.querySelector('.guess-higher').addEventListener('click', () => startCycling('higher'));
 
 
 window.onload = checkLocalStorage();
@@ -44,7 +44,9 @@ function checkLocalStorage() {
 }
 
 function startCycling(type) {
-    if(type === 'start') {
+    console.log(gameStart);
+    if (type === 'start') {
+
         if (gameStart[1] === false) {
             gameStart[1] = true;
             intervalId = setInterval(cycleDice, 100);
@@ -57,7 +59,7 @@ function startCycling(type) {
             console.log('game already started!');
         }
     }
-    if(type === 'lower') {
+    if (type === 'lower') {
         if (gameStart[3] === true) {
             console.log('You already started geussing higher!!');
         } else {
@@ -69,7 +71,7 @@ function startCycling(type) {
                     intervalId = setInterval(cycleGuess, 100);
                     setTimeout(function () {
                         clearInterval(intervalId);
-                        guessLower();
+                        guess('guessLower');
                         updatePoints();
                         gameStart[0] = false;
                         gameStart[2] = false;
@@ -80,7 +82,7 @@ function startCycling(type) {
             }
         }
     }
-    if(type = 'higher') {
+    if (type === 'higher') {
         if (gameStart[2] === true) {
             console.log('You already started guessing lower!!');
         } else {
@@ -92,7 +94,7 @@ function startCycling(type) {
                     intervalId = setInterval(cycleGuess, 100)
                     setTimeout(function () {
                         clearInterval(intervalId);
-                        guessHigher();
+                        guess('guessHigher');
                         updatePoints();
                         gameStart[0] = false;
                         gameStart[3] = false;
@@ -107,23 +109,9 @@ function startCycling(type) {
 
 function cycleDice() {
     let randomDice = Math.round(Math.random() * (6 - 1) + 1);
-
     dice[currentDice].classList.remove('active');
     currentDice = (randomDice) % totalImages[0];
     dice[currentDice].classList.add('active');
-}
-
-
-function guessLower() {
-    if (currentDiceGuess < currentDice) {
-        console.log('You win!');
-        points = points + 10;
-    } else if (currentDiceGuess === currentDice) {
-        console.log('Tie!');
-    } else {
-        console.log('You lose :(');
-        points = points - 5;
-    }
 }
 
 
@@ -134,15 +122,28 @@ function cycleGuess() {
     diceGuess[currentDiceGuess].classList.add('active-guess');
 }
 
-function guessHigher() {
-    if (currentDice < currentDiceGuess) {
-        console.log('You win!');
-        points = points + 10;
-    } else if (currentDiceGuess === currentDice) {
-        console.log('Tie!');
-    } else {
-        console.log('You lose :(');
-        points = points - 5;
+function guess(type) {
+    if (type === 'guessHigher') {
+        if (currentDice < currentDiceGuess) {
+            console.log('You win!');
+            points = points + 10;
+        } else if (currentDiceGuess === currentDice) {
+            console.log('Tie!');
+        } else {
+            console.log('You lose :(');
+            points = points - 5;
+        }
+    }
+    if (type === 'guessLower') {
+        if (currentDiceGuess < currentDice) {
+            console.log('You win!');
+            points = points + 10;
+        } else if (currentDiceGuess === currentDice) {
+            console.log('Tie!');
+        } else {
+            console.log('You lose :(');
+            points = points - 5;
+        }
     }
 }
 
