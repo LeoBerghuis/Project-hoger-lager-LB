@@ -18,9 +18,9 @@ const rtrnRed = document.querySelector('.return-red').addEventListener('click', 
 const buyDiceBlue = document.querySelector('.buy-dice-blue').addEventListener('click', () => buyDice('blue'));
 const buydiceGold = document.querySelector('.buy-dice-gold').addEventListener('click', () => buyDice('gold'));
 const popup = document.querySelector('.popup').addEventListener('click', openPopup);
-const startBtn = document.querySelector('.start-button').addEventListener('click', startCycling);
-const startLowerBtn = document.querySelector('.guess-lower').addEventListener('click', startLower);
-const startHigherBtn = document.querySelector('.guess-higher').addEventListener('click', startHigher);
+const startBtn = document.querySelector('.start-button').addEventListener('click',() => startCycling('start'));
+const startLowerBtn = document.querySelector('.guess-lower').addEventListener('click',() => startCycling('lower'));
+const startHigherBtn = document.querySelector('.guess-higher').addEventListener('click',() => startCycling('higher'));
 
 
 window.onload = checkLocalStorage();
@@ -43,17 +43,65 @@ function checkLocalStorage() {
     }
 }
 
-function startCycling() {
-    if (gameStart[1] === false) {
-        gameStart[1] = true;
-        intervalId = setInterval(cycleDice, 100);
-        setTimeout(function () {
-            clearInterval(intervalId);
-            gameStart[0] = true;
-            gameStart[1] = false;
-        }, 4000);
-    } else {
-        console.log('game already started!');
+function startCycling(type) {
+    if(type === 'start') {
+        if (gameStart[1] === false) {
+            gameStart[1] = true;
+            intervalId = setInterval(cycleDice, 100);
+            setTimeout(function () {
+                clearInterval(intervalId);
+                gameStart[0] = true;
+                gameStart[1] = false;
+            }, 4000);
+        } else {
+            console.log('game already started!');
+        }
+    }
+    if(type === 'lower') {
+        if (gameStart[3] === true) {
+            console.log('You already started geussing higher!!');
+        } else {
+            if (gameStart[2] === false) {
+                gameStart[2] = true;
+                if (gameStart[0] === false) {
+                    alert('Start game first!');
+                } else {
+                    intervalId = setInterval(cycleGuess, 100);
+                    setTimeout(function () {
+                        clearInterval(intervalId);
+                        guessLower();
+                        updatePoints();
+                        gameStart[0] = false;
+                        gameStart[2] = false;
+                    }, 4000);
+                }
+            } else {
+                console.log('You already started guessing!!');
+            }
+        }
+    }
+    if(type = 'higher') {
+        if (gameStart[2] === true) {
+            console.log('You already started guessing lower!!');
+        } else {
+            if (gameStart[3] === false) {
+                gameStart[3] = true;
+                if (gameStart[0] === false) {
+                    alert('Start game first!!');
+                } else {
+                    intervalId = setInterval(cycleGuess, 100)
+                    setTimeout(function () {
+                        clearInterval(intervalId);
+                        guessHigher();
+                        updatePoints();
+                        gameStart[0] = false;
+                        gameStart[3] = false;
+                    }, 4000);
+                }
+            } else {
+                console.log('You already started guessing!');
+            }
+        }
     }
 }
 
@@ -65,36 +113,6 @@ function cycleDice() {
     dice[currentDice].classList.add('active');
 }
 
-function startLower() {
-    if (gameStart[3] === true) {
-        console.log('You already started geussing higher!!');
-    } else {
-        if (gameStart[2] === false) {
-            gameStart[2] = true;
-            if (gameStart[0] === false) {
-                alert('Start game first!');
-            } else {
-                intervalId = setInterval(cycleLower, 100);
-                setTimeout(function () {
-                    clearInterval(intervalId);
-                    guessLower();
-                    updatePoints();
-                    gameStart[0] = false;
-                    gameStart[2] = false;
-                }, 4000);
-            }
-        } else {
-            console.log('You already started guessing!!');
-        }
-    }
-}
-
-function cycleLower() {
-    let randomDice = Math.round(Math.random() * (6 - 1) + 1);
-    diceGuess[currentDiceGuess].classList.remove('active-guess');
-    currentDiceGuess = (randomDice) % totalImages[1];
-    diceGuess[currentDiceGuess].classList.add('active-guess');
-}
 
 function guessLower() {
     if (currentDiceGuess < currentDice) {
@@ -108,32 +126,9 @@ function guessLower() {
     }
 }
 
-function startHigher() {
-    if (gameStart[2] === true) {
-        console.log('You already started guessing lower!!');
-    } else {
-        if (gameStart[3] === false) {
-            gameStart[3] = true;
-            if (gameStart[0] === false) {
-                alert('Start game first!!');
-            } else {
-                intervalId = setInterval(cycleHigher, 100)
-                setTimeout(function () {
-                    clearInterval(intervalId);
-                    guessHigher();
-                    updatePoints();
-                    gameStart[0] = false;
-                    gameStart[3] = false;
-                }, 4000);
-            }
-        } else {
-            console.log('You already started guessing!');
-        }
-    }
-}
 
-function cycleHigher() {
-    let randomDice = Math.round(Math.random() * 6);
+function cycleGuess() {
+    let randomDice = Math.round(Math.random() * (6 - 1) + 1);
     diceGuess[currentDiceGuess].classList.remove('active-guess');
     currentDiceGuess = (randomDice) % totalImages[1];
     diceGuess[currentDiceGuess].classList.add('active-guess');
