@@ -48,15 +48,16 @@ main {
 }
 
 .popup {
-  position: relative;
+  position: absolute;
+  top: 10px;
+  right: 10px;
   display: inline-block;
   cursor: pointer;
   color: white;
   border: solid 1px white;
-  margin-right: 1.5em;
   background-color: rgba(49, 158, 16, 0.9);
-  width: 6em;
-  height: 2.5em;
+  width: 150px;
+  height: 50px;
   border-radius: 0.5em;
   justify-content: center;
   align-items: center;
@@ -65,21 +66,24 @@ main {
 
 .popup .popuptext {
   display: none;
-  width: 250px;
-  height: 250px;
-  background-color: #f77e71;
+  width: 1500px;
+  height: 560px;
+  background-image: url("../img/Buy\ upgrades.png");
+  box-shadow: 5px 5px 5px 5px black;
   color: #fff;
   text-align: center;
   border-radius: 6px;
   padding: 8px 0;
   position: absolute;
-  top: 125%;
-  right: 30%;
-  margin-left: -80px;
+  top: 60px;
+  right: 10px;
+  cursor: default;
 }
 
 .popup .popuptext.show {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .center {
@@ -210,4 +214,12 @@ main {
   .guess-buttons button {
     font-size: 1em;
   }
+}
+
+.buy-background-yellow {
+border: 2px solid white;
+background-color: rgba(0, 0, 0, 0.7);
+cursor: pointer;
+width: 150px;
+border-radius: 10px;
 }
