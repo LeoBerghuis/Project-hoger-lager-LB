@@ -5,8 +5,9 @@ const diceGuess = document.querySelectorAll('.dice-guess-img img');
 const totalImages = [dice.length, diceGuess.length];
 let intervalId;
 let points = localStorage.getItem('points') ? parseInt(localStorage.getItem('points')) : 0;
+let highScorePoint = localStorage.getItem('highscore') ? parseInt(localStorage.getItem('highscore')) : 0;
 let pointSystem = document.querySelector('.point').innerText = points;
-let highScore = document.querySelector('.highscore').innerText = points;
+let highScore = document.querySelector('.highscore').innerText = highScorePoint;
 const upgrades = [150, 200, 250, 350, 300];
 const ownBase = true;
 let gameStart = [false, false, false, false];
@@ -44,9 +45,7 @@ function checkLocalStorage() {
 }
 
 function startCycling(type) {
-    console.log(gameStart);
     if (type === 'start') {
-
         if (gameStart[1] === false) {
             gameStart[1] = true;
             intervalId = setInterval(cycleDice, 100);
@@ -66,6 +65,7 @@ function startCycling(type) {
             if (gameStart[2] === false) {
                 gameStart[2] = true;
                 if (gameStart[0] === false) {
+                    gameStart[2] = false;
                     alert('Start game first!');
                 } else {
                     intervalId = setInterval(cycleGuess, 100);
@@ -73,12 +73,15 @@ function startCycling(type) {
                         clearInterval(intervalId);
                         guess('guessLower');
                         updatePoints();
+                        highScorePoints();
                         gameStart[0] = false;
                         gameStart[2] = false;
                     }, 4000);
                 }
             } else {
+                gameStart[2] = false;
                 console.log('You already started guessing!!');
+
             }
         }
     }
@@ -89,6 +92,7 @@ function startCycling(type) {
             if (gameStart[3] === false) {
                 gameStart[3] = true;
                 if (gameStart[0] === false) {
+                    gameStart[3] = false;
                     alert('Start game first!!');
                 } else {
                     intervalId = setInterval(cycleGuess, 100)
@@ -96,12 +100,15 @@ function startCycling(type) {
                         clearInterval(intervalId);
                         guess('guessHigher');
                         updatePoints();
+                        highScorePoints();
                         gameStart[0] = false;
                         gameStart[3] = false;
                     }, 4000);
                 }
             } else {
+                gameStart[3] = false;
                 console.log('You already started guessing!');
+
             }
         }
     }
@@ -127,6 +134,7 @@ function guess(type) {
         if (currentDice < currentDiceGuess) {
             console.log('You win!');
             points = points + 10;
+            highScorePoint = highScorePoint + 10;
         } else if (currentDiceGuess === currentDice) {
             console.log('Tie!');
         } else {
@@ -137,7 +145,8 @@ function guess(type) {
     if (type === 'guessLower') {
         if (currentDiceGuess < currentDice) {
             console.log('You win!');
-            points = points + 10;
+            points = points + 10; + 10;
+            highScorePoint = highScorePoint + 10;
         } else if (currentDiceGuess === currentDice) {
             console.log('Tie!');
         } else {
@@ -148,13 +157,19 @@ function guess(type) {
 }
 
 function updatePoints() {
-    pointSystem = document.querySelector('.point').innerText = points;
-    localStorage.setItem('points', points);
+    if (points < 0) {
+        points = 0;
+        pointSystem = document.querySelector('.point').innerText = points;
+        localStorage.setItem('points', points);
+    } else {
+        pointSystem = document.querySelector('.point').innerText = points;
+        localStorage.setItem('points', points);
+    }
 }
 
 function highScorePoints() {
-    highScore = document.querySelector('.highscore').innerText = points;
-    localStorage.setItem('highscore', points);
+    highScore = document.querySelector('.highscore').innerText = highScorePoint;
+    localStorage.setItem('highscore', highScorePoint);
 }
 
 function openPopup() {
@@ -163,36 +178,36 @@ function openPopup() {
 }
 
 function upgradeBackground(color) {
-    if (color === 'yellow' && points >= upgrades[0]) {
+    if (color === 'yellow') {
         if (localStorage.getItem('goldOwned', true)) {
             alert('You already own this!');
             document.body.style.backgroundImage = 'url("../img/yellow.png")';
             document.querySelector(".buy-background-yellow").innerText = "Gold backround | owned";
-        } else {
+        } else if (points >= upgrades[0]) {
             points = points - upgrades[0];
             updatePoints();
             document.body.style.backgroundImage = 'url("../img/yellow.png")';
             document.querySelector(".buy-background-yellow").innerText = "Gold backround | owned";
             localStorage.setItem('goldOwned', true);
         }
-    } else if (color === 'green' && points >= upgrades[1]) {
+    } else if (color === 'green') {
         if (localStorage.getItem('greenOwned', true)) {
             alert('You already own this!');
             document.body.style.backgroundImage = 'url("../img/green.png")';
             document.querySelector(".buy-background-green").innerText = "Green backround | owned";
-        } else {
+        } else if (points >= upgrades[1]) {
             points = points - upgrades[1];
             updatePoints();
             document.body.style.backgroundImage = 'url("../img/green.png")';
             localStorage.setItem('greenOwned', true);
             document.querySelector(".buy-background-green").innerText = "Green backround | owned";
         }
-    } else if (color === 'multi' && points >= upgrades[2]) {
+    } else if (color === 'multi') {
         if (localStorage.getItem('multiOwned', true)) {
             alert('You already own this!');
             document.body.style.backgroundImage = 'url("../img/multi.png")';
             document.querySelector(".buy-background-multi").innerText = "multicolored backround | owned";
-        } else {
+        } else if (points >= upgrades[2]) {
             points = points - upgrades[2];
             updatePoints();
             document.body.style.backgroundImage = 'url("../img/multi.png")';
