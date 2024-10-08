@@ -1,3 +1,4 @@
+/*Background image and making sure all of the content like the dice are centered*/
 body {
   background-image: url('../img/red.png');
   background-repeat: no-repeat;
@@ -13,6 +14,7 @@ body {
   flex-direction: column;
 }
 
+/*Positioning for the points div*/
 header {
   width: 100vw;
   display: flex;
@@ -22,6 +24,7 @@ header {
   top: 0px;
 }
 
+/*Points div markup*/
 .points {
   display: flex;
   flex-direction: column;
@@ -36,12 +39,14 @@ header {
   margin-left: 10px;
 }
 
+/*High score text markup*/
 .high-score {
   font-size: 0.9em;
   font-weight: 300;
   margin-top: 5px;
 }
 
+/*Upgrades button markup*/
 .popup {
   position: absolute;
   top: 10px;
@@ -59,6 +64,7 @@ header {
   display: flex;
 }
 
+/*Shop popup markup*/
 .popup .popuptext {
   display: none;
   width: 1500px;
@@ -75,12 +81,13 @@ header {
   cursor: default;
 }
 
+/*Makes the shop show up when the upgrades button is clicked*/
 .popup .popuptext.show {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
+/*Centers the box around the dice and its content(The dice)*/
 .center {
   position: relative;
   display: flex;
@@ -194,9 +201,9 @@ header {
 }
 
 .buy-background-yellow {
-border: 2px solid white;
-background-color: rgba(0, 0, 0, 0.7);
-cursor: pointer;
-width: 150px;
-border-radius: 10px;
+  border: 2px solid white;
+  background-color: rgba(0, 0, 0, 0.7);
+  cursor: pointer;
+  width: 150px;
+  border-radius: 10px;
 }
