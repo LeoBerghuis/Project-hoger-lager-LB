@@ -23,9 +23,10 @@ const startBtn = document.querySelector('.start-button').addEventListener('click
 const startLowerBtn = document.querySelector('.guess-lower').addEventListener('click', () => startCycling('lower'));
 const startHigherBtn = document.querySelector('.guess-higher').addEventListener('click', () => startCycling('higher'));
 
-
+//When window loads in runs this
 window.onload = checkLocalStorage();
 
+//function to check local storage
 function checkLocalStorage() {
     if (localStorage.getItem('goldOwned', true)) {
         document.querySelector(".buy-background-yellow").innerText = "Gold backround | owned";
@@ -44,10 +45,13 @@ function checkLocalStorage() {
     }
 }
 
+
+//function when you start cycling
 function startCycling(type) {
     if (type === 'start') {
         if (gameStart[1] === false) {
             gameStart[1] = true;
+            //interval for dice to run for 4 seconds
             intervalId = setInterval(cycleDice, 100);
             setTimeout(function () {
                 clearInterval(intervalId);
@@ -68,6 +72,7 @@ function startCycling(type) {
                     gameStart[2] = false;
                     alert('Start game first!');
                 } else {
+                    //interval for dice to run for 4 seconds
                     intervalId = setInterval(cycleGuess, 100);
                     setTimeout(function () {
                         clearInterval(intervalId);
@@ -95,6 +100,7 @@ function startCycling(type) {
                     gameStart[3] = false;
                     alert('Start game first!!');
                 } else {
+                    //interval for dice to run for 4 seconds
                     intervalId = setInterval(cycleGuess, 100)
                     setTimeout(function () {
                         clearInterval(intervalId);
@@ -108,81 +114,102 @@ function startCycling(type) {
             } else {
                 gameStart[3] = false;
                 console.log('You already started guessing!');
-
             }
         }
     }
 }
 
+//function to switch between the dices
 function cycleDice() {
     let randomDice = Math.round(Math.random() * (6 - 1) + 1);
+    //removes the class
     dice[currentDice].classList.remove('active');
+    //adds the class to a random dice because of the randomDice variable
     currentDice = (randomDice) % totalImages[0];
     dice[currentDice].classList.add('active');
 }
 
-
+//function to switch b etween the dices
 function cycleGuess() {
     let randomDice = Math.round(Math.random() * (6 - 1) + 1);
+    //removes the class
     diceGuess[currentDiceGuess].classList.remove('active-guess');
+    //adds the class to a random dice because of the randomDice variable
     currentDiceGuess = (randomDice) % totalImages[1];
     diceGuess[currentDiceGuess].classList.add('active-guess');
 }
 
+//function for the points adding/removing
 function guess(type) {
     if (type === 'guessHigher') {
+        //checks if currentdice is smaller than currentdiceguess
         if (currentDice < currentDiceGuess) {
+            //adds the points
             console.log('You win!');
             points = points + 10;
             highScorePoint = highScorePoint + 10;
         } else if (currentDiceGuess === currentDice) {
             console.log('Tie!');
         } else {
+            //removes the points
             console.log('You lose :(');
             points = points - 5;
         }
     }
     if (type === 'guessLower') {
+        //checks if currentdiceguess is smaller than currentdice
         if (currentDiceGuess < currentDice) {
+            //adds the points
             console.log('You win!');
             points = points + 10; + 10;
             highScorePoint = highScorePoint + 10;
         } else if (currentDiceGuess === currentDice) {
             console.log('Tie!');
         } else {
+            //removes the points
             console.log('You lose :(');
             points = points - 5;
         }
     }
 }
 
+//function to update the points to localstorage
 function updatePoints() {
+    //checks if the points go under 0, if they do it stays at 0
     if (points < 0) {
         points = 0;
+        //updates the points in localstorage
         pointSystem = document.querySelector('.point').innerText = points;
         localStorage.setItem('points', points);
     } else {
+        //updates the points in localstorage
         pointSystem = document.querySelector('.point').innerText = points;
         localStorage.setItem('points', points);
     }
 }
 
+//function to update highscorepoints
 function highScorePoints() {
+    //updates the highscorepoints in localstorage
     highScore = document.querySelector('.highscore').innerText = highScorePoint;
     localStorage.setItem('highscore', highScorePoint);
 }
 
+//function to open the popup
 function openPopup() {
     const popup = document.getElementById("myPopup");
     popup.classList.toggle("show");
 }
 
+//function for upgrading the background
 function upgradeBackground(color) {
     if (color === 'yellow') {
+        //checks if it is in localstorage
         if (localStorage.getItem('goldOwned', true)) {
             alert('You already own this!');
             document.body.style.backgroundImage = 'url("../img/yellow.png")';
             document.querySelector(".buy-background-yellow").innerText = "Gold backround | owned";
+            //if not in local storage checks if you have enough points, then puts in localstorage that you own it
         } else if (points >= upgrades[0]) {
             points = points - upgrades[0];
             updatePoints();
@@ -191,10 +218,12 @@ function upgradeBackground(color) {
             localStorage.setItem('goldOwned', true);
         }
     } else if (color === 'green') {
+        //checks if it is in localstorage
         if (localStorage.getItem('greenOwned', true)) {
             alert('You already own this!');
             document.body.style.backgroundImage = 'url("../img/green.png")';
             document.querySelector(".buy-background-green").innerText = "Green backround | owned";
+            //if not in local storage checks if you have enough points, then puts in localstorage that you own it
         } else if (points >= upgrades[1]) {
             points = points - upgrades[1];
             updatePoints();
@@ -203,10 +232,12 @@ function upgradeBackground(color) {
             document.querySelector(".buy-background-green").innerText = "Green backround | owned";
         }
     } else if (color === 'multi') {
+        //checks if it is in localstorage
         if (localStorage.getItem('multiOwned', true)) {
             alert('You already own this!');
             document.body.style.backgroundImage = 'url("../img/multi.png")';
             document.querySelector(".buy-background-multi").innerText = "multicolored backround | owned";
+            //if not in local storage checks if you have enough points, then puts in localstorage that you own it
         } else if (points >= upgrades[2]) {
             points = points - upgrades[2];
             updatePoints();
@@ -214,45 +245,54 @@ function upgradeBackground(color) {
             localStorage.setItem('multiOwned', true);
             document.querySelector(".buy-background-multi").innerText = "multicolored backround | owned";
         }
+        //return to the red background color (default)
     } else if (ownBase && color === 'red') {
         document.body.style.backgroundImage = 'url("../img/red.png")';
+        //if not enough points and it's not in localstorage
     } else {
         alert('Not enough points!!');
         document.body.style.backgroundImage = 'url("../img/red.png")';
     }
 }
 
+//function for upgrading dice
 function buyDice(color) {
-    if (color === 'gold' && points >= upgrades[3]) {
+    if (color === 'gold') {
+        //checks if it is in localstorage
         if (localStorage.getItem('diceGoldOwned', true)) {
             alert('You already own this!!');
             updateDiceGold();
             document.querySelector(".buy-dice-gold").innerText = "Gold dice | owned";
-        } else {
+            //if not in local storage checks if you have enough points, then puts in localstorage that you own it
+        } else if (points >= upgrades[3]) {
             points = points - upgrades[3];
             updatePoints();
             updateDiceGold();
             localStorage.setItem('diceGoldOwned', true);
             document.querySelector(".buy-dice-gold").innerText = "Gold dice | owned";
         }
-    } else if (color === 'blue' && points >= upgrades[4]) {
+    } else if (color === 'blue') {
+        //checks if it is in localstorage
         if (localStorage.getItem('diceBlueOwned', true)) {
             alert('You aready own this!!');
             updateDiceBlue();
             document.querySelector(".buy-dice-blue").innerText = "Blue dice | owned";
-        } else {
+            //if not in local storage checks if you have enough points, then puts in localstorage that you own it
+        } else if (points >= upgrades[4]) {
             points = points - upgrades[4];
             updateDiceBlue();
             updatePoints();
             localStorage.setItem('diceBlueOwned', true);
             document.querySelector(".buy-dice-blue").innerText = "Blue dice | owned";
         }
+        //if not enough points and it's not in localstorage
     } else {
         alert('Not enough points!!');
         updateDiceBlue();
     }
 }
 
+//function to update the dice to blue
 function updateDiceBlue() {
     allDice[0].src = "img/1-blue.png";
     allDice[1].src = "img/2-blue.png";
@@ -268,6 +308,7 @@ function updateDiceBlue() {
     allDice[11].src = "img/6-blue.png";
 }
 
+//function to update the dice to gold
 function updateDiceGold() {
     allDice[0].src = "img/1-gold.png";
     allDice[1].src = "img/2-gold.png";
