@@ -184,11 +184,11 @@ main {
   .guess-buttons button {
     font-size: 1em;
     padding: 0.8em;
-    width: 93%;
+    width: 118%;
   }
 
   .guess-buttons {
-    width: 93%;
+    width: 118%;
   }
 
   main {
@@ -196,7 +196,7 @@ main {
   }
 
   .center {
-    width: 75%;
+    width: 100%;
     height: auto;
   }
 
