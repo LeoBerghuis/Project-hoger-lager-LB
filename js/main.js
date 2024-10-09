@@ -292,7 +292,6 @@ function buyDice(color) {
     }
 }
 
-//function to update the dice to blue
 function updateDiceBlue() {
     allDice[0].src = "img/1-blue.png";
     allDice[1].src = "img/2-blue.png";
@@ -308,7 +307,6 @@ function updateDiceBlue() {
     allDice[11].src = "img/6-blue.png";
 }
 
-//function to update the dice to gold
 function updateDiceGold() {
     allDice[0].src = "img/1-gold.png";
     allDice[1].src = "img/2-gold.png";

@@ -171,40 +171,20 @@ main {
 }
 
 @media screen and (max-width: 768px) {
-  .points {
-    font-size: 1.2em;
-    padding: 0.5em;
+  body {
+    flex-direction: column;
   }
 
-  .high-score {
-    font-size: 0.7em;
+  .center {
+    width: 100%;
+    height: 50%;
   }
 
   .start-button,
   .guess-buttons button {
     font-size: 1em;
-    padding: 0.8em;
-    width: 118%;
   }
 
-  .guess-buttons {
-    width: 118%;
-  }
-
-  main {
-    margin-top: 1em;
-  }
-
-  .center {
-    width: 100%;
-    height: auto;
-  }
-
-  .dice-img,
-  .dice-guess-img {
-    width: 4em;
-    height: 4em;
-  }
 }
 
 @media screen and (min-width: 768px) {
