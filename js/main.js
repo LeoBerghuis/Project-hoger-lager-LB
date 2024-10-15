@@ -54,15 +54,20 @@ function alerts(type) {
     const alertText = document.querySelector('.alert-text');
     alertPopup.style.top = '1em';
     alertPopup.style.opacity = '1';
-
-    if(type === 'win') {
+    if (type === 'win') {
         alertText.innerText = 'You win!';
     }
-    if(type === 'lose') {
+    if (type === 'lose') {
         alertText.innerText = 'You lose :(';
     }
-    if(type === 'tie') {
+    if (type === 'tie') {
         alertText.innerText = 'Tie!';
+    }
+    if (type === 'guessLower') {
+        alertText.innerText = 'You already started guessing lower!!';
+    }
+    if (type === 'guessHigher') {
+        alertText.innerText = 'You already started guessing higher!!';
     }
 }
 
@@ -85,12 +90,15 @@ function startCycling(type) {
                 gameStart[1] = false;
             }, 4000);
         } else {
-            console.log('game already started!');
+            alerts('alreadyStarted')
         }
     }
     if (type === 'lower') {
         if (gameStart[3] === true) {
-            console.log('You already started geussing higher!!');
+            alerts('guessHigher');
+            setTimeout(function () {
+                closeAlerts();
+            }, 3000);
         } else {
             if (gameStart[2] === false) {
                 gameStart[2] = true;
@@ -121,7 +129,10 @@ function startCycling(type) {
     }
     if (type === 'higher') {
         if (gameStart[2] === true) {
-            console.log('You already started guessing lower!!');
+            alerts('guessLower');
+            setTimeout(function () {
+                closeAlerts();
+            }, 3000);
         } else {
             if (gameStart[3] === false) {
                 gameStart[3] = true;
