@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hoger Lager LD</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=menu" />
 </head>
 
 <body>
@@ -16,6 +17,10 @@
         </div>
 
     </header>
+    <div class="alerts">
+        <div class="alert-text"></div>
+        <button class="confirm-button">Confirm</button>
+    </div>
     <main>
 
         <div class="center">
@@ -49,13 +54,41 @@
                 </div>
             </div>
         </div>
-
-
         <button class="start-button">Start game</button>
         <div class="guess-buttons">
             <button class="guess-lower">Guess lower</button>
             <button class="guess-higher">Guess higher</button>
         </div>
+        <div class="popup-small"><span class="material-symbols-outlined">
+            menu
+            </span>
+            <span class="popuptext" id="myPopup">
+                <div>
+                    <div class="buy-background-yellow">
+                        <img src="img/yellow.png" alt="gold background upgrade">
+                        <div>Upgrade to Gold
+                            Background | 150 points
+                        </div>
+                    </div>
+                    <div class="buy-background-yellow">
+                        <div class="buy-background-green">Upgrade to Green
+                            Background | 200 points</div>
+                    </div>
+                    <div class="buy-background-yellow">
+                        <div class="buy-background-multi">Upgrade to Multi Colored
+                            Background | 250 points</div>
+                    </div>
+                    <div class="buy-background-yellow">
+                        <div class="buy-dice-blue">Upgrade to blue dice | 300 points</div>
+                    </div>
+                    <div class="buy-background-yellow">
+                        <div class="buy-dice-gold">Upgrade to gold dice | 350 points</div>
+                    </div>
+                    <div class="return-to-red">
+                        <div class="return-red">Return to red background</div>
+                    </div>
+                </div>
+            </span></div>
         <div class="popup upgrades">Upgrades
             <span class="popuptext" id="myPopup">
                 <div>

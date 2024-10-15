@@ -19,9 +19,12 @@ const rtrnRed = document.querySelector('.return-red').addEventListener('click', 
 const buyDiceBlue = document.querySelector('.buy-dice-blue').addEventListener('click', () => buyDice('blue'));
 const buydiceGold = document.querySelector('.buy-dice-gold').addEventListener('click', () => buyDice('gold'));
 const popup = document.querySelector('.popup').addEventListener('click', openPopup);
+const popupSmall = document.querySelector('.popup-small').addEventListener('click', openPopup);
 const startBtn = document.querySelector('.start-button').addEventListener('click', () => startCycling('start'));
 const startLowerBtn = document.querySelector('.guess-lower').addEventListener('click', () => startCycling('lower'));
 const startHigherBtn = document.querySelector('.guess-higher').addEventListener('click', () => startCycling('higher'));
+const alertPopup = document.querySelector('.alerts');
+const confirmButton = document.querySelector('.confirm-button').addEventListener('click', closeAlerts)
 
 //When window loads in runs this
 window.onload = checkLocalStorage();
@@ -45,6 +48,29 @@ function checkLocalStorage() {
     }
 }
 
+
+//function for alerts
+function alerts(type) {
+    const alertText = document.querySelector('.alert-text');
+    alertPopup.style.top = '1em';
+    alertPopup.style.opacity = '1';
+
+    if(type === 'win') {
+        alertText.innerText = 'You win!';
+    }
+    if(type === 'lose') {
+        alertText.innerText = 'You lose :(';
+    }
+    if(type === 'tie') {
+        alertText.innerText = 'Tie!';
+    }
+}
+
+function closeAlerts() {
+    alertPopup.style.opacity = '0';
+    alertPopup.style.top = '-10em';
+    alertPopup.style.transition = 'opacity 0.5s ease-in-out, top 0.5s ease-in-out';
+}
 
 //function when you start cycling
 function startCycling(type) {
@@ -81,6 +107,9 @@ function startCycling(type) {
                         highScorePoints();
                         gameStart[0] = false;
                         gameStart[2] = false;
+                        setTimeout(function () {
+                            closeAlerts();
+                        }, 3000);
                     }, 4000);
                 }
             } else {
@@ -109,6 +138,9 @@ function startCycling(type) {
                         highScorePoints();
                         gameStart[0] = false;
                         gameStart[3] = false;
+                        setTimeout(function () {
+                            closeAlerts();
+                        }, 3000);
                     }, 4000);
                 }
             } else {
@@ -145,30 +177,30 @@ function guess(type) {
         //checks if currentdice is smaller than currentdiceguess
         if (currentDice < currentDiceGuess) {
             //adds the points
-            console.log('You win!');
             points = points + 10;
             highScorePoint = highScorePoint + 10;
+            alerts('win');
         } else if (currentDiceGuess === currentDice) {
-            console.log('Tie!');
+            alerts('tie');
         } else {
             //removes the points
-            console.log('You lose :(');
             points = points - 5;
+            alerts('lose');
         }
     }
     if (type === 'guessLower') {
         //checks if currentdiceguess is smaller than currentdice
         if (currentDiceGuess < currentDice) {
             //adds the points
-            console.log('You win!');
             points = points + 10; + 10;
             highScorePoint = highScorePoint + 10;
+            alerts('win');
         } else if (currentDiceGuess === currentDice) {
-            console.log('Tie!');
+            alerts('tie');
         } else {
             //removes the points
-            console.log('You lose :(');
             points = points - 5;
+            alerts('lose');
         }
     }
 }
@@ -197,7 +229,7 @@ function highScorePoints() {
 
 //function to open the popup
 function openPopup() {
-    const popup = document.getElementById("myPopup");
+    const popup = document.querySelector("#myPopup");
     popup.classList.toggle("show");
 }
 
