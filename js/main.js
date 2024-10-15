@@ -19,7 +19,7 @@ const rtrnRed = document.querySelector('.return-red').addEventListener('click', 
 const buyDiceBlue = document.querySelector('.buy-dice-blue').addEventListener('click', () => buyDice('blue'));
 const buydiceGold = document.querySelector('.buy-dice-gold').addEventListener('click', () => buyDice('gold'));
 const popup = document.querySelector('.popup').addEventListener('click', openPopup);
-const popupSmall = document.querySelector('.popup-small').addEventListener('click', openPopup);
+const popupSmall = document.querySelector('.popup-small').addEventListener('click', openPopupSmall);
 const startBtn = document.querySelector('.start-button').addEventListener('click', () => startCycling('start'));
 const startLowerBtn = document.querySelector('.guess-lower').addEventListener('click', () => startCycling('lower'));
 const startHigherBtn = document.querySelector('.guess-higher').addEventListener('click', () => startCycling('higher'));
@@ -231,6 +231,11 @@ function highScorePoints() {
 function openPopup() {
     const popup = document.querySelector("#myPopup");
     popup.classList.toggle("show");
+}
+
+function openPopupSmall() {
+    const popup = document.querySelector('#myPopupSmall');
+    popup.classList.toggle("show")
 }
 
 //function for upgrading the background

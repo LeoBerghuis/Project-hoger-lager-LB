@@ -70,7 +70,8 @@ main {
 }
 
 /*Shop popup markup*/
-.popup .popuptext, .popup-small .popuptext {
+.popup .popuptext,
+.popup-small .popuptext {
   display: none;
   width: 1500px;
   height: 560px;
@@ -87,11 +88,13 @@ main {
 }
 
 /*Makes the shop show up when the upgrades button is clicked*/
-.popup .popuptext.show, .popup-small .popuptext.show {
+.popup .popuptext.show,
+.popup-small .popuptext.show {
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 /*Centers the box around the dice and its content(The dice)*/
 .center {
   position: relative;
@@ -106,13 +109,15 @@ main {
   flex-direction: row;
 }
 
-.center .start p, .center .guess p {
+.center .start p,
+.center .guess p {
   color: white;
   font-weight: 500;
   font-size: 1.6em;
 }
 
-.start, .guess {
+.start,
+.guess {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -211,7 +216,13 @@ main {
   border-radius: 10px;
   margin-bottom: 10px;
 }
-.return-to-red{
+
+.buy-background-yellow img {
+  width: 241px;
+  border-radius: 1em;
+}
+
+.return-to-red {
   border: 2px solid white;
   background-color: rgba(216, 0, 0, 0.7);
   cursor: pointer;
@@ -238,7 +249,7 @@ main {
   .popup {
     right: -10px;
   }
-  
+
   .popup-small {
     opacity: 0;
   }
@@ -258,6 +269,7 @@ main {
   .guess-buttons button {
     font-size: 1em;
   }
+
   .popup {
     right: -10px;
   }
@@ -278,18 +290,44 @@ main {
     align-items: center;
     width: 60px;
     height: 60px;
-    background-color: rgba(49, 158, 16, 0.9);;
+    background-color: rgba(49, 158, 16, 0.9);
+
     border-radius: 50%;
     cursor: pointer;
     opacity: 1;
     position: absolute;
     top: 14px;
     right: -6vw;
+  }
+
+  .popup-small .popuptext {
+    right: 23px;
+    flex-direction: column;
+    width: 360px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .upgrade-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    margin-bottom: 5em;
 }
 
-.popup-small .popuptext {
-  right: 23px;
-  width: 360px;
-}
-} 
+.upgrade-title {
+  color: #000;
+  font-size: 40px;
+  font-weight: bold;
+  margin: 0;
+  margin-right: 20px;
+  font-family: sans-serif;
 
+}
+
+.cart-icon {
+  font-size: 50px;
+  color: #000;
+}
+}
