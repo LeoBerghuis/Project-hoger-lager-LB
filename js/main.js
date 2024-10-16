@@ -69,6 +69,9 @@ function alerts(type) {
     if (type === 'guessHigher') {
         alertText.innerText = 'You already started guessing higher!!';
     }
+    if (type === 'alreadyStarted') {
+        alertText.innerText = 'You already started the game!';
+    }
 }
 
 function closeAlerts() {
@@ -77,87 +80,74 @@ function closeAlerts() {
     alertPopup.style.transition = 'opacity 0.5s ease-in-out, top 0.5s ease-in-out';
 }
 
+function diceStart(type) {
+    if (type === 'start') {
+        for (let i = 0; i < 40; i++) {
+            setTimeout(function () {
+                cycleDice();
+            }, 100 * i);
+        }
+        setTimeout(function () {
+            gameStart[0] = true;
+            gameStart[1] = false;
+        }, 4000);
+    }
+    else {
+        for (let i = 0; i < 40; i++) {
+            setTimeout(function () {
+                cycleGuess();
+            }, 100 * i);
+        }
+    }
+}
+
+function showMultipleAlerts(alertsArray) {
+    for (let i = 0; i < alertsArray.length; i++) {
+        alerts(alertsArray[i]); 
+        setTimeout(function () { 
+            closeAlerts();  
+        },3000 * i);
+    }
+}
+
 //function when you start cycling
 function startCycling(type) {
-    if (type === 'start') {
-        if (gameStart[1] === false) {
-            gameStart[1] = true;
-            //interval for dice to run for 4 seconds
-            intervalId = setInterval(cycleDice, 100);
-            setTimeout(function () {
-                clearInterval(intervalId);
-                gameStart[0] = true;
-                gameStart[1] = false;
-            }, 4000);
-        } else {
-            alerts('alreadyStarted')
-        }
-    }
-    if (type === 'lower') {
-        if (gameStart[3] === true) {
-            alerts('guessHigher');
-            setTimeout(function () {
-                closeAlerts();
-            }, 3000);
-        } else {
-            if (gameStart[2] === false) {
-                gameStart[2] = true;
-                if (gameStart[0] === false) {
-                    gameStart[2] = false;
-                    alert('Start game first!');
-                } else {
-                    //interval for dice to run for 4 seconds
-                    intervalId = setInterval(cycleGuess, 100);
-                    setTimeout(function () {
-                        clearInterval(intervalId);
-                        guess('guessLower');
-                        updatePoints();
-                        highScorePoints();
-                        gameStart[0] = false;
-                        gameStart[2] = false;
-                        setTimeout(function () {
-                            closeAlerts();
-                        }, 3000);
-                    }, 4000);
-                }
-            } else {
-                gameStart[2] = false;
-                console.log('You already started guessing!!');
 
-            }
+    if (type === 'start') {
+        if (!gameStart[1]) {
+            gameStart[1] = true;
+            diceStart('start');
+        } else {
+            showMultipleAlerts(['alreadyStarted']); 
         }
     }
+
+    if (type === 'lower') {
+        handleGuess(2, 'guessHigher', 'guessLower');
+    }
+
     if (type === 'higher') {
-        if (gameStart[2] === true) {
-            alerts('guessLower');
-            setTimeout(function () {
-                closeAlerts();
-            }, 3000);
+        handleGuess(3, 'guessLower', 'guessHigher');
+    }
+}
+
+function handleGuess(index, alertType, guessType) {
+    if (gameStart[2] || gameStart[3]) {
+        showMultipleAlerts([alertType]); 
+    } else {
+         if (!gameStart[0]) {
+            alert('Start the game first!');
         } else {
-            if (gameStart[3] === false) {
-                gameStart[3] = true;
-                if (gameStart[0] === false) {
-                    gameStart[3] = false;
-                    alert('Start game first!!');
-                } else {
-                    //interval for dice to run for 4 seconds
-                    intervalId = setInterval(cycleGuess, 100)
-                    setTimeout(function () {
-                        clearInterval(intervalId);
-                        guess('guessHigher');
-                        updatePoints();
-                        highScorePoints();
-                        gameStart[0] = false;
-                        gameStart[3] = false;
-                        setTimeout(function () {
-                            closeAlerts();
-                        }, 3000);
-                    }, 4000);
-                }
-            } else {
-                gameStart[3] = false;
-                console.log('You already started guessing!');
-            }
+            gameStarted = true;
+            gameStart[index] = true;
+            diceStart('guess');
+            setTimeout(function () {
+                guess(guessType);
+                updatePoints();
+                highScorePoints();
+                gameStart[0] = false;
+                gameStart[index] = false;
+            }, 4000);
         }
     }
 }
