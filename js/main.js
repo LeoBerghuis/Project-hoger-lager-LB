@@ -12,7 +12,6 @@ const upgrades = [150, 200, 250, 350, 300];
 const ownBase = true;
 let gameStart = [false, false, false, false];
 const allDice = [document.querySelector('.dice-one'), document.querySelector('.dice-two'), document.querySelector('.dice-three'), document.querySelector('.dice-four'), document.querySelector('.dice-five'), document.querySelector('.dice-six'), document.querySelector('.dice-one-Guess'), document.querySelector('.dice-two-Guess'), document.querySelector('.dice-three-Guess'), document.querySelector('.dice-four-Guess'), document.querySelector('.dice-five-Guess'), document.querySelector('.dice-six-Guess')];
-
 const popup = document.querySelector('.popup').addEventListener('click', openPopup);
 const popupSmall = document.querySelector('.popup-small').addEventListener('click', openPopupSmall);
 const startBtn = document.querySelector('.start-button').addEventListener('click', () => startCycling('start'));
@@ -26,11 +25,13 @@ const buttons = [
     document.querySelector('.buy-background-multi').addEventListener('click', () => upgradeBackground('multi')),
     document.querySelector('.return-red').addEventListener('click', () => upgradeBackground('red')),
     document.querySelector('.buy-dice-gold').addEventListener('click', () => buyDice('gold')),
+    document.querySelector('.buy-dice-blue').addEventListener('click', () => buyDice('gold')),
     document.querySelector('.buy-background-gold-big').addEventListener('click', () => upgradeBackground('yellow')),
     document.querySelector('.buy-background-green-big').addEventListener('click', () => upgradeBackground('green')),
     document.querySelector('.buy-background-multi-big').addEventListener('click', () => upgradeBackground('multi')),
     document.querySelector('.return-red-big').addEventListener('click', () => upgradeBackground('red')),
     document.querySelector('.buy-dice-gold-big').addEventListener('click', () => buyDice('gold')),
+    document.querySelector('.buy-dice-blue-big').addEventListener('click', () => buyDice('gold')),
 ];
 
 //When window loads in runs this
@@ -55,6 +56,7 @@ function checkLocalStorage() {
     }
 }
 
+//Update all the text in html if needed
 function updateText(selector, text) {
     const elements = document.querySelectorAll(selector);
     for (let i = 0; i < elements.length; i++) {
@@ -62,125 +64,93 @@ function updateText(selector, text) {
     }
 }
 
+//first function that runs after button press
+function startCycling(type) {
+    //If start button then it runs this
+    if (type === 'start') {
+        //If game isn't started it runs this
+        if (!gameStart[1]) {
+            gameStart[1] = true;
+            gameStart[0] = true;
+            //Function to run the dice
+            diceStart('start');
 
+            //After 4 seconds it makes gamestart0 false so if dice are still spinning you can't click higher/lower
+            setTimeout(function () {
+                gameStart[0] = false;
+            }, 4000);
+        } else {
+            showMultipleAlerts('alreadyStarted'); //If game already started
+        }
+    }
 
-//function for alerts
-function alerts(type) {
-    const alertText = document.querySelector('.alert-text');
-    alertPopup.style.top = '1em';
-    alertPopup.style.opacity = '1';
-    if (type === 'win') {
-        alertText.innerText = 'You win!';
+    //If lower button clicked
+    if (type === 'lower') {
+        //If dice still spinning
+        if (gameStart[0]) {
+            console.log('dice still spinning');
+        } else {
+            handleGuess(2, 'guessHigher', 'guessLower'); //If not then it runs the handleGuess function with the parameters given
+        }
     }
-    if (type === 'lose') {
-        alertText.innerText = 'You lose :(';
-    }
-    if (type === 'tie') {
-        alertText.innerText = 'Tie!';
-    }
-    if (type === 'guessLower') {
-        alertText.innerText = 'You already started guessing!!';
-    }
-    if (type === 'guessHigher') {
-        alertText.innerText = 'You already started guessing!!';
-    }
-    if (type === 'alreadyStarted') {
-        alertText.innerText = 'You already started the game!';
-    }
-    if (type === 'stillStarting') {
-        alertText.innerText = 'Please wait, the game is starting!';
+
+    //If higher button clicked
+    if (type === 'higher') {
+        //If dice still spinning
+        if (gameStart[0]) {
+            console.log('dice still spinning');
+        } else {
+            handleGuess(3, 'guessLower', 'guessHigher'); //If not then it runs the handleGuess function with the parameters given
+        }
     }
 }
 
-function closeAlerts() {
-    alertPopup.style.opacity = '0';
-    alertPopup.style.top = '-10em';
-    alertPopup.style.transition = 'opacity 0.5s ease-in-out, top 0.5s ease-in-out';
-}
-
+//Function to cycle the dice images
 function diceStart(type) {
     if (type === 'start') {
         // Starts cycling dice every 100ms for 4 seconds
         intervalId = setInterval(cycleDice, 100);
+        // Stops the dice cycling after 4 seconds
         setTimeout(function () {
-            clearInterval(intervalId); // Stops the dice cycling after 4 seconds
+            clearInterval(intervalId);
         }, 4000);
     } else {
         // Starts cycling guess dice every 100ms for 4 seconds
         intervalId = setInterval(cycleGuess, 100);
+        // Stop the guess dice cycling after 4 seconds
         setTimeout(function () {
-            clearInterval(intervalId); // Stops the guess dice cycling after 4 seconds
+            clearInterval(intervalId);
         }, 4000);
     }
 }
 
-function showMultipleAlerts(alertsArray) {
-    // Show the alert
-    alerts(alertsArray); 
-    
-    // Close the alert after 3 seconds
-    setTimeout(closeAlerts, 3000);
-}
-
-
-function startCycling(type) {
-    if (type === 'start') {
-        if (!gameStart[1]) { 
-            gameStart[1] = true; 
-            gameStart[0] = true; 
-            diceStart('start');  
-
-            setTimeout(function() {
-                gameStart[0] = false; 
-            }, 4000);
-        } else {
-            showMultipleAlerts('alreadyStarted'); 
-        }
-    }
-
-    if (type === 'lower') {
-        if (gameStart[0]) { 
-            console.log('dice still spinning');
-        } else {
-            handleGuess(2, 'guessHigher', 'guessLower'); 
-        }
-    }
-
-    if (type === 'higher') {
-        if (gameStart[0]) { 
-            console.log('dice still spinning');
-        } else {
-            handleGuess(3, 'guessLower', 'guessHigher'); 
-        }
-    }
-}
-
+//Handle the guess
 function handleGuess(index, alertType, guessType) {
+    //Checks if higher/lower button is clicked
     if (gameStart[2] || gameStart[3]) {
-        showMultipleAlerts(alertType); 
+        showMultipleAlerts(alertType);
     } else {
+        //Checks if game is started
         if (gameStart[1] === false) {
             alert('Start the game first!');
         } else {
+            //Checks if you already started the game
             if (gameStart[index]) {
                 showMultipleAlerts(alertType);
             } else {
-                gameStart[index] = true;
-                diceStart();
-                setTimeout(function () {
-                    guess(guessType); 
-                    updatePoints(); 
-                    highScorePoints();
-                    gameStart[1] = false;  
-                    gameStart[index] = false;
+                gameStart[index] = true; //Sets the higher/lower to true
+                diceStart(); //Runs the dice guess
+                setTimeout(function () { //After 4 seconds
+                    guess(guessType); //Checks if you win
+                    updatePoints('points');
+                    updatePoints();
+                    gameStart[1] = false;
+                    gameStart[index] = false; //Sets the gamestart to false
                 }, 4000);
             }
         }
     }
 }
-
-
-
 
 //function to switch between the dices
 function cycleDice() {
@@ -236,28 +206,34 @@ function guess(type) {
     }
 }
 
-//function to update the points to localstorage
-function updatePoints() {
-    //checks if the points go under 0, if they do it stays at 0
-    if (points < 0) {
-        points = 0;
-        points = points + 10000000;
-        //updates the points in localstorage
-        pointSystem = document.querySelector('.point').innerText = points;
-        localStorage.setItem('points', points);
-    } else {
-        points = points + 10000000;
-        //updates the points in localstorage
-        pointSystem = document.querySelector('.point').innerText = points;
-        localStorage.setItem('points', points);
-    }
+function showMultipleAlerts(alertsArray) {
+    // Show the alert
+    alerts(alertsArray);
+    // Close the alert after 3 seconds
+    setTimeout(closeAlerts, 3000);
 }
 
-//function to update highscorepoints
-function highScorePoints() {
-    //updates the highscorepoints in localstorage
-    highScore = document.querySelector('.highscore').innerText = highScorePoint;
-    localStorage.setItem('highscore', highScorePoint);
+//function to update the points to localstorage
+function updatePoints(type) {
+    //checks if the points go under 0, if they do it stays at 0
+    if (type === 'points') {
+        if (points < 0) {
+            points = 0;
+            points = points + 10000000;
+            //updates the points in localstorage
+            pointSystem = document.querySelector('.point').innerText = points;
+            localStorage.setItem('points', points);
+        } else {
+            points = points + 10000000;
+            //updates the points in localstorage
+            pointSystem = document.querySelector('.point').innerText = points;
+            localStorage.setItem('points', points);
+        }
+    } else {
+        //updates the highscorepoints in localstorage
+        highScore = document.querySelector('.highscore').innerText = highScorePoint;
+        localStorage.setItem('highscore', highScorePoint);
+    }
 }
 
 //function to open the popup
@@ -271,6 +247,41 @@ function openPopupSmall() {
     popup.classList.toggle("show")
 }
 
+//function for alerts
+function alerts(type) {
+    const alertText = document.querySelector('.alert-text');
+    alertPopup.style.top = '1em';
+    alertPopup.style.opacity = '1';
+    if (type === 'win') {
+        alertText.innerText = 'You win!';
+    }
+    if (type === 'lose') {
+        alertText.innerText = 'You lose :(';
+    }
+    if (type === 'tie') {
+        alertText.innerText = 'Tie!';
+    }
+    if (type === 'guessLower') {
+        alertText.innerText = 'You already started guessing!!';
+    }
+    if (type === 'guessHigher') {
+        alertText.innerText = 'You already started guessing!!';
+    }
+    if (type === 'alreadyStarted') {
+        alertText.innerText = 'You already started the game!';
+    }
+    if (type === 'stillStarting') {
+        alertText.innerText = 'Please wait, the game is starting!';
+    }
+}
+
+function closeAlerts() {
+    alertPopup.style.opacity = '0';
+    alertPopup.style.top = '-10em';
+    alertPopup.style.transition = 'opacity 0.5s ease-in-out, top 0.5s ease-in-out';
+}
+
+
 //function for upgrading the background
 function upgradeBackground(color) {
     if (color === 'yellow') {
@@ -281,7 +292,7 @@ function upgradeBackground(color) {
             //if not in local storage checks if you have enough points, then puts in localstorage that you own it
         } else if (points >= upgrades[0]) {
             points = points - upgrades[0];
-            updatePoints();
+            updatePoints('points');
             document.body.style.backgroundImage = 'url("../img/yellow.png")';
             document.querySelectorAll(".gold").innerText = "Gold backround | owned";
             localStorage.setItem('goldOwned', true);
@@ -294,7 +305,7 @@ function upgradeBackground(color) {
             //if not in local storage checks if you have enough points, then puts in localstorage that you own it
         } else if (points >= upgrades[1]) {
             points = points - upgrades[1];
-            updatePoints();
+            updatePoints('points');
             document.body.style.backgroundImage = 'url("../img/green.png")';
             localStorage.setItem('greenOwned', true);
             document.querySelectorAll(".green").innerText = "Green backround | owned";
@@ -307,7 +318,7 @@ function upgradeBackground(color) {
             //if not in local storage checks if you have enough points, then puts in localstorage that you own it
         } else if (points >= upgrades[2]) {
             points = points - upgrades[2];
-            updatePoints();
+            updatePoints('points');
             document.body.style.backgroundImage = 'url("../img/multi.png")';
             localStorage.setItem('multiOwned', true);
             document.querySelectorAll(".multi").innerText = "multicolored backround | owned";
@@ -332,7 +343,7 @@ function buyDice(color) {
             //if not in local storage checks if you have enough points, then puts in localstorage that you own it
         } else if (points >= upgrades[3]) {
             points = points - upgrades[3];
-            updatePoints();
+            updatePoints('points');
             updateDiceGold();
             localStorage.setItem('diceGoldOwned', true);
             document.querySelectorAll(".gold-dice").innerText = "Gold dice | owned";
@@ -346,7 +357,7 @@ function buyDice(color) {
         } else if (points >= upgrades[4]) {
             points = points - upgrades[4];
             updateDiceBlue();
-            updatePoints();
+            updatePoints('points');
             localStorage.setItem('diceBlueOwned', true);
             document.querySelectorAll(".blue-dice").innerText = "Blue dice | owned";
         }
