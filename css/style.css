@@ -51,49 +51,8 @@ main {
   margin-top: 5px;
 }
 
-/*Upgrades button markup*/
-.popup {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  display: inline-block;
-  cursor: pointer;
-  color: white;
-  border: solid 1px white;
-  background-color: rgba(49, 158, 16, 0.9);
-  width: 150px;
-  height: 50px;
-  border-radius: 0.5em;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-}
 
-/*Shop popup markup*/
-.popup .popuptext,
-.popup-small .popuptext {
-  display: none;
-  width: 1500px;
-  height: 560px;
-  background-image: url("../img/Buy\ upgrades.png");
-  box-shadow: 5px 5px 5px 5px black;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 8px 0;
-  position: absolute;
-  top: 60px;
-  right: 10px;
-  cursor: default;
-}
 
-/*Makes the shop show up when the upgrades button is clicked*/
-.popup .popuptext.show,
-.popup-small .popuptext.show {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
 /*Centers the box around the dice and its content(The dice)*/
 .center {
@@ -214,6 +173,61 @@ main {
   position: absolute;
 }
 
+/*Upgrades button markup*/
+.popup {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: inline-block;
+  cursor: pointer;
+  color: white;
+  border: solid 1px white;
+  background-color: rgba(49, 158, 16, 0.9);
+  width: 150px;
+  height: 50px;
+  border-radius: 0.5em;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+/*Shop popup markup*/
+.popup .popuptext,
+.popup-small .popuptext {
+  display: none;
+  width: 95vw;
+  height: 80vh;
+  background-image: url("../img/Buy\ upgrades.png");
+  box-shadow: 5px 5px 5px 5px black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  top: 60px;
+  right: 10px;
+  cursor: default;
+}
+
+/*Makes the shop show up when the upgrades button is clicked*/
+.popup .popuptext.show,
+.popup-small .popuptext.show {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.upgrades-shop {
+  overflow: scroll;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  flex-direction: row;
+  height: 80%;
+  margin-top: 4em;
+  margin-left: 2em;
+}
+
 .buy-upgrades {
   border: 2px solid white;
   background-color: rgba(0, 0, 0, 0.7);
@@ -221,6 +235,7 @@ main {
   width: 250px;
   border-radius: 10px;
   margin-bottom: 10px;
+  max-height: 273px;
 }
 
 .buy-upgrades img {
@@ -260,10 +275,10 @@ main {
   }
 
   .popup-small .popuptext {
-    right: 23px;
+    right: 18px;
     flex-direction: column;
-    width: 360px;
-    height: 640px;
+    width: 91vw;
+    height: 86vh;
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -274,17 +289,13 @@ main {
     align-items: center;
     justify-content: center;
     padding: 20px;
-    margin-bottom: 5em;
+    margin-bottom: 0em;
   }
 
   .upgrades-shop {
-    overflow: scroll;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    width: 100%;
-    flex-direction: row;
+    margin-top: 0em;
   }
+
 
   .upgrade-title {
     color: #000;
@@ -318,13 +329,13 @@ main {
 }
 
 .points {
-  width: 8em;
+  width: 12em;
   height: 5em;
 }
 
 .alerts {
   position: fixed;
-  bottom: 20px;
-  left: 50%;
+  top: 85vh;
+  left: 14%;
 }
 }

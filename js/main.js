@@ -33,6 +33,8 @@ const buttons = [
     document.querySelector('.buy-dice-gold-big').addEventListener('click', () => buyDice('gold')),
     document.querySelector('.buy-dice-blue-big').addEventListener('click', () => buyDice('gold')),
 ];
+//checks screen width
+const screenWidth = window.innerWidth;
 
 //When window loads in runs this
 window.onload = checkLocalStorage();
@@ -250,8 +252,16 @@ function openPopupSmall() {
 //function for alerts
 function alerts(type) {
     const alertText = document.querySelector('.alert-text');
-    alertPopup.style.top = '1em';   
-    alertPopup.style.opacity = '1';
+
+    if (screenWidth <= 504) {
+        alertPopup.style.bottom = '1em';
+        alertPopup.style.top = '';
+        alertPopup.style.opacity = '1';
+    } else {
+        alertPopup.style.top = '1em';
+        alertPopup.style.bottom = '';
+        alertPopup.style.opacity = '1';
+    }
     if (type === 'win') {
         alertText.innerText = 'You win!';
     }
@@ -276,9 +286,18 @@ function alerts(type) {
 }
 
 function closeAlerts() {
-    alertPopup.style.opacity = '0';
-    alertPopup.style.top = '-10em';
-    alertPopup.style.transition = 'opacity 0.5s ease-in-out, top 0.5s ease-in-out';
+    if (screenWidth <= 504) {
+        alertPopup.style.opacity = '0';
+        alertPopup.style.bottom = '-10em';
+        alertPopup.style.top = '';
+        alertPopup.style.transition = 'opacity 0.5s ease-in-out, bottom 0.5s ease-in-out';
+    } else {
+        alertPopup.style.opacity = '0';
+        alertPopup.style.top = '-10em';
+        alertPopup.style.bottom = '';
+        alertPopup.style.transition = 'opacity 0.5s ease-in-out, top 0.5s ease-in-out';
+    }
+
 }
 
 
