@@ -250,7 +250,7 @@ function openPopupSmall() {
 //function for alerts
 function alerts(type) {
     const alertText = document.querySelector('.alert-text');
-    alertPopup.style.top = '1em';
+    alertPopup.style.top = '1em';   
     alertPopup.style.opacity = '1';
     if (type === 'win') {
         alertText.innerText = 'You win!';

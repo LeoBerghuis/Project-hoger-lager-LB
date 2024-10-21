@@ -190,6 +190,10 @@ main {
   opacity: 0;
 }
 
+.popup-small {
+  opacity: 0;
+}
+
 .alert-text {
   color: white;
   font-size: 1.5em;
@@ -275,6 +279,11 @@ main {
 
   .upgrades-shop {
     overflow: scroll;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+    flex-direction: row;
   }
 
   .upgrade-title {
