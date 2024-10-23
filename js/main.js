@@ -31,7 +31,7 @@ const buttons = [
     document.querySelector('.buy-background-multi-big').addEventListener('click', () => upgradeBackground('multi')),
     document.querySelector('.return-red-big').addEventListener('click', () => upgradeBackground('red')),
     document.querySelector('.buy-dice-gold-big').addEventListener('click', () => buyDice('gold')),
-    document.querySelector('.buy-dice-blue-big').addEventListener('click', () => buyDice('gold')),
+    document.querySelector('.buy-dice-blue-big').addEventListener('click', () => buyDice('blue')),
 ];
 //checks screen width
 const screenWidth = window.innerWidth;
@@ -313,7 +313,7 @@ function upgradeBackground(color) {
             points = points - upgrades[0];
             updatePoints('points');
             document.body.style.backgroundImage = 'url("../img/yellow.png")';
-            document.querySelectorAll(".gold").innerText = "Gold backround | owned";
+            updateText(".gold", "Gold background | owned");
             localStorage.setItem('goldOwned', true);
         }
     } else if (color === 'green') {
@@ -327,7 +327,7 @@ function upgradeBackground(color) {
             updatePoints('points');
             document.body.style.backgroundImage = 'url("../img/green.png")';
             localStorage.setItem('greenOwned', true);
-            document.querySelectorAll(".green").innerText = "Green backround | owned";
+            updateText(".green", "Green background | owned");
         }
     } else if (color === 'multi') {
         //checks if it is in localstorage
@@ -340,7 +340,7 @@ function upgradeBackground(color) {
             updatePoints('points');
             document.body.style.backgroundImage = 'url("../img/multi.png")';
             localStorage.setItem('multiOwned', true);
-            document.querySelectorAll(".multi").innerText = "multicolored backround | owned";
+            updateText(".multi", "Multi background | owned");
         }
         //return to the red background color (default)
     } else if (ownBase && color === 'red') {
@@ -365,7 +365,7 @@ function buyDice(color) {
             updatePoints('points');
             updateDiceGold();
             localStorage.setItem('diceGoldOwned', true);
-            document.querySelectorAll(".gold-dice").innerText = "Gold dice | owned";
+            updateText(".gold-dice", "Gold dice | owned");
         }
     } else if (color === 'blue') {
         //checks if it is in localstorage
@@ -378,7 +378,7 @@ function buyDice(color) {
             updateDiceBlue();
             updatePoints('points');
             localStorage.setItem('diceBlueOwned', true);
-            document.querySelectorAll(".blue-dice").innerText = "Blue dice | owned";
+            updateText(".blue-dice", "Blue dice | owned");
         }
         //if not enough points and it's not in localstorage
     } else {
@@ -415,4 +415,26 @@ function updateDiceGold() {
     allDice[9].src = "img/4-gold.png";
     allDice[10].src = "img/5-gold.png";
     allDice[11].src = "img/6-gold.png";
+}
+
+let timeLeft = 600;
+
+// Function to format time as MM:SS
+function formatTime(seconds) {
+    let minutes = Math.floor(seconds / 60);
+    let remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+}
+
+function startTimer() {
+// Update the timer every second
+const timerInterval = setInterval(() => {
+    if (timeLeft > 0) {
+        timeLeft--; // Decrease time left
+        document.getElementById('timer').textContent = formatTime(timeLeft); // Update display
+    } else {
+        clearInterval(timerInterval); // Stop the timer when it reaches 0
+        document.getElementById('timer').textContent = "Time's Up!";
+    }
+}, 1000);
 }
