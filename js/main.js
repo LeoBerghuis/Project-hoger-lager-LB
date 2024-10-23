@@ -4,11 +4,13 @@ const dice = document.querySelectorAll('.dice-img img');
 const diceGuess = document.querySelectorAll('.dice-guess-img img');
 const totalImages = [dice.length, diceGuess.length];
 let intervalId;
+let timeLeft = 600;
+let multiplier = false;
 let points = localStorage.getItem('points') ? parseInt(localStorage.getItem('points')) : 0;
 let highScorePoint = localStorage.getItem('highscore') ? parseInt(localStorage.getItem('highscore')) : 0;
 let pointSystem = document.querySelector('.point').innerText = points;
 let highScore = document.querySelector('.highscore').innerText = highScorePoint;
-const upgrades = [150, 200, 250, 350, 300];
+const upgrades = [150, 200, 250, 350, 300, 400];
 const ownBase = true;
 let gameStart = [false, false, false, false];
 const allDice = [document.querySelector('.dice-one'), document.querySelector('.dice-two'), document.querySelector('.dice-three'), document.querySelector('.dice-four'), document.querySelector('.dice-five'), document.querySelector('.dice-six'), document.querySelector('.dice-one-Guess'), document.querySelector('.dice-two-Guess'), document.querySelector('.dice-three-Guess'), document.querySelector('.dice-four-Guess'), document.querySelector('.dice-five-Guess'), document.querySelector('.dice-six-Guess')];
@@ -25,6 +27,7 @@ const buttons = [
     document.querySelector('.buy-background-multi').addEventListener('click', () => upgradeBackground('multi')),
     document.querySelector('.return-red').addEventListener('click', () => upgradeBackground('red')),
     document.querySelector('.buy-dice-gold').addEventListener('click', () => buyDice('gold')),
+    document.querySelector('.buy-points-boost').addEventListener('click', buyMultiplier),
     document.querySelector('.buy-dice-blue').addEventListener('click', () => buyDice('gold')),
     document.querySelector('.buy-background-gold-big').addEventListener('click', () => upgradeBackground('yellow')),
     document.querySelector('.buy-background-green-big').addEventListener('click', () => upgradeBackground('green')),
@@ -32,6 +35,7 @@ const buttons = [
     document.querySelector('.return-red-big').addEventListener('click', () => upgradeBackground('red')),
     document.querySelector('.buy-dice-gold-big').addEventListener('click', () => buyDice('gold')),
     document.querySelector('.buy-dice-blue-big').addEventListener('click', () => buyDice('blue')),
+    document.querySelector('.buy-points-boost-big').addEventListener('click', buyMultiplier),
 ];
 //checks screen width
 const screenWidth = window.innerWidth;
@@ -179,9 +183,14 @@ function guess(type) {
     if (type === 'guessHigher') {
         //checks if currentdice is smaller than currentdiceguess
         if (currentDice < currentDiceGuess) {
-            //adds the points
-            points = points + 10;
-            highScorePoint = highScorePoint + 10;
+            //checks if multiplier is true
+            if(multiplier) {
+                points = points + 20;
+                highScorePoint = highScorePoint + 20;
+            } else {
+                points = points + 10;
+                highScorePoint = highScorePoint + 10;
+            }
             showMultipleAlerts('win');
         } else if (currentDiceGuess === currentDice) {
             showMultipleAlerts('tie');
@@ -194,9 +203,13 @@ function guess(type) {
     if (type === 'guessLower') {
         //checks if currentdiceguess is smaller than currentdice
         if (currentDiceGuess < currentDice) {
-            //adds the points
-            points = points + 10; + 10;
-            highScorePoint = highScorePoint + 10;
+            if(multiplier) {
+                points = points + 20;
+                highScorePoint = highScorePoint + 20;
+            } else {
+                points = points + 10;
+                highScorePoint = highScorePoint + 10;
+            }
             showMultipleAlerts('win');
         } else if (currentDiceGuess === currentDice) {
             showMultipleAlerts('tie');
@@ -221,12 +234,10 @@ function updatePoints(type) {
     if (type === 'points') {
         if (points < 0) {
             points = 0;
-            points = points + 10000000;
             //updates the points in localstorage
             pointSystem = document.querySelector('.point').innerText = points;
             localStorage.setItem('points', points);
         } else {
-            points = points + 10000000;
             //updates the points in localstorage
             pointSystem = document.querySelector('.point').innerText = points;
             localStorage.setItem('points', points);
@@ -387,6 +398,17 @@ function buyDice(color) {
     }
 }
 
+function buyMultiplier() {
+    if (points >= upgrades[5]) {
+        points = points - upgrades[5];
+        updatePoints('points');
+        startTimer();
+        updateText(".multiply", "Points multiply | owned");
+    } else {
+        alert('Not enough points!!');
+    }
+}
+
 function updateDiceBlue() {
     allDice[0].src = "img/1-blue.png";
     allDice[1].src = "img/2-blue.png";
@@ -417,24 +439,23 @@ function updateDiceGold() {
     allDice[11].src = "img/6-gold.png";
 }
 
-let timeLeft = 600;
-
-// Function to format time as MM:SS
-function formatTime(seconds) {
-    let minutes = Math.floor(seconds / 60);
-    let remainingSeconds = seconds % 60;
-    return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
-}
-
 function startTimer() {
-// Update the timer every second
-const timerInterval = setInterval(() => {
-    if (timeLeft > 0) {
-        timeLeft--; // Decrease time left
-        document.getElementById('timer').textContent = formatTime(timeLeft); // Update display
+    multiplier = true;
+    timeLeft = 600;
+    if(multiplier) {
+        setInterval(() => {
+            let minutes = Math.floor(timeLeft / 60);
+            let seconds = timeLeft % 60;
+            document.querySelector('.timer').textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+            timeLeft--;
+    
+            if (timeLeft < 0) {
+                document.querySelector('.timer').textContent = "Time's Up!";      
+                updateText(".multiply", "Multiply points x2");   
+                multiplier = false;
+            }
+        }, 1000);
     } else {
-        clearInterval(timerInterval); // Stop the timer when it reaches 0
-        document.getElementById('timer').textContent = "Time's Up!";
+        document.querySelector('.timer').textContent = "Time's Up!";
     }
-}, 1000);
 }
