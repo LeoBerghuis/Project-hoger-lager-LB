@@ -177,7 +177,6 @@ function cycleDice() {
 function cycleGuess() {
     let randomDice = Math.round(Math.random() * (6 - 1) + 1);
     //removes the class
-    //console.log(diceGuess, currentDiceGuess);
     diceGuess[currentDiceGuess].classList.remove('active-guess');
     //adds the class to a random dice because of the randomDice variable
     currentDiceGuess = (randomDice) % totalImages[1];
@@ -189,7 +188,6 @@ function guess(type) {
     if (type === 'guessHigher') {
         //checks if currentdice is smaller than currentdiceguess
         if (currentDice < currentDiceGuess) {
-<<<<<<< Updated upstream
             //checks if multiplier is true
             if(multiplier) {
                 points = points + 20;
@@ -198,13 +196,6 @@ function guess(type) {
                 points = points + 10;
                 highScorePoint = highScorePoint + 10;
             }
-=======
-            //adds the points
-            points = points + 10;
-            highScorePoint = highScorePoint + 10;
-            //adds the xp
-            xp = xp + 80;
->>>>>>> Stashed changes
             showMultipleAlerts('win');
         } else if (currentDiceGuess === currentDice) {
             //adds the xp
@@ -221,7 +212,6 @@ function guess(type) {
     if (type === 'guessLower') {
         //checks if currentdiceguess is smaller than currentdice
         if (currentDiceGuess < currentDice) {
-<<<<<<< Updated upstream
             if(multiplier) {
                 points = points + 20;
                 highScorePoint = highScorePoint + 20;
@@ -229,13 +219,6 @@ function guess(type) {
                 points = points + 10;
                 highScorePoint = highScorePoint + 10;
             }
-=======
-            //adds the points
-            points = points + 10; + 10;
-            highScorePoint = highScorePoint + 10;
-            //adds the xp
-            xp = xp + 20;
->>>>>>> Stashed changes
             showMultipleAlerts('win');
         } else if (currentDiceGuess === currentDice) {
             //adds the xp
@@ -261,7 +244,6 @@ function showMultipleAlerts(alertsArray) {
 //function to update the points to localstorage
 function updatePoints(type) {
     //checks if the points go under 0, if they do it stays at 0
-    console.log(type)
     if (type === 'points') {
         if (points < 0) {
             points = 0;
@@ -278,7 +260,6 @@ function updatePoints(type) {
         highScore = document.querySelector('.highscore').innerText = highScorePoint;
         localStorage.setItem('highscore', highScorePoint);
     } if(type === 'xp') {
-        console.log(xp);
         xpNumber = document.querySelector('.progressxp').innerText = 'progress: ' + xp + '/' + xpNeeded;
         localStorage.setItem('xp', xp);
     }
