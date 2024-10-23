@@ -45,7 +45,7 @@ const buttons = [
 //checks screen width
 const screenWidth = window.innerWidth;
 
-//When window loads in runs this
+//When window loads
 window.onload = checkLocalStorage();
 
 //function to check local storage
@@ -84,14 +84,14 @@ function startCycling(type) {
             gameStart[1] = true;
             gameStart[0] = true;
             //Function to run the dice
-            diceStart('start');
+            diceStart(cycleDice);
 
             //After 4 seconds it makes gamestart0 false so if dice are still spinning you can't click higher/lower
             setTimeout(function () {
                 gameStart[0] = false;
             }, 4000);
         } else {
-            showMultipleAlerts('alreadyStarted'); //If game already started
+            showAlerts('alreadyStarted'); //If game already started
         }
     }
 
@@ -118,39 +118,26 @@ function startCycling(type) {
 
 //Function to cycle the dice images
 function diceStart(type) {
-    if (type === 'start') {
         // Starts cycling dice every 100ms for 4 seconds
-        intervalId = setInterval(cycleDice, 100);
+        intervalId = setInterval(type, 100);
         // Stops the dice cycling after 4 seconds
         setTimeout(function () {
             clearInterval(intervalId);
         }, 4000);
-    } else {
-        // Starts cycling guess dice every 100ms for 4 seconds
-        intervalId = setInterval(cycleGuess, 100);
-        // Stop the guess dice cycling after 4 seconds
-        setTimeout(function () {
-            clearInterval(intervalId);
-        }, 4000);
-    }
 }
 
 //Handle the guess
 function handleGuess(index, alertType, guessType) {
-    //Checks if higher/lower button is clicked
-    if (gameStart[2] || gameStart[3]) {
-        showMultipleAlerts(alertType);
-    } else {
         //Checks if game is started
         if (gameStart[1] === false) {
             alert('Start the game first!');
         } else {
             //Checks if you already started the game
-            if (gameStart[index]) {
-                showMultipleAlerts(alertType);
+            if (gameStart[2] || gameStart[3]) {
+                showAlerts(alertType);
             } else {
                 gameStart[index] = true; //Sets the higher/lower to true
-                diceStart(); //Runs the dice guess
+                diceStart(cycleGuess); //Runs the dice guess
                 setTimeout(function () { //After 4 seconds
                     guess(guessType); //Checks if you win
                     updatePoints('points');
@@ -159,7 +146,6 @@ function handleGuess(index, alertType, guessType) {
                     gameStart[index] = false; //Sets the gamestart to false
                 }, 4000);
             }
-        }
     }
 }
 
@@ -202,19 +188,19 @@ function guess(type) {
                 xp = xp + 20;
                 levelUp()
             }
-            showMultipleAlerts('win');
+            showAlerts('win');
         } else if (currentDiceGuess === currentDice) {
             //adds the xp
             xp = xp + 10
             levelUp()
-            showMultipleAlerts('tie');
+            showAlerts('tie');
         } else {
             //removes the points
             points = points - 5;
             // adds the xp
             xp = xp + 5;
             levelUp()
-            showMultipleAlerts('lose');
+            showAlerts('lose');
         }
     }
     if (type === 'guessLower') {
@@ -233,24 +219,24 @@ function guess(type) {
                 xp = xp + 20;
                 levelUp()
             }
-            showMultipleAlerts('win');
+            showAlerts('win');
         } else if (currentDiceGuess === currentDice) {
             //adds the xp
             xp = xp + 10;
             levelUp()
-            showMultipleAlerts('tie');
+            showAlerts('tie');
         } else {
             //removes the points
             points = points - 5;
             //adds the xp
             xp = xp + 5;
             levelUp()
-            showMultipleAlerts('lose');
+            showAlerts('lose');
         }
     }
 }
 
-function showMultipleAlerts(alertsArray) {
+function showAlerts(alertsArray) {
     // Show the alert
     alerts(alertsArray);
     // Close the alert after 3 seconds
@@ -290,7 +276,6 @@ function levelUp() {
         updatePoints('xp');
     }
 }
-levelUp()
 
 //function to open the popup
 function openPopup() {
@@ -337,6 +322,9 @@ function alerts(type) {
     if (type === 'stillStarting') {
         alertText.innerText = 'Please wait, the game is starting!';
     }
+    if (type === 'alreadyOwn') {
+        alertText.innerText = 'You already own this!';
+    }
 }
 
 function closeAlerts() {
@@ -360,7 +348,7 @@ function upgradeBackground(color) {
     if (color === 'yellow') {
         //checks if it is in localstorage
         if (localStorage.getItem('goldOwned', true)) {
-            alert('You already own this!');
+            showAlerts('alreadyOwn');
             document.body.style.backgroundImage = 'url("../img/yellow.png")';
             //if not in local storage checks if you have enough points, then puts in localstorage that you own it
         } else if (points >= upgrades[0]) {
@@ -373,7 +361,7 @@ function upgradeBackground(color) {
     } else if (color === 'green') {
         //checks if it is in localstorage
         if (localStorage.getItem('greenOwned', true)) {
-            alert('You already own this!');
+            showAlerts('alreadyOwn');
             document.body.style.backgroundImage = 'url("../img/green.png")';
             //if not in local storage checks if you have enough points, then puts in localstorage that you own it
         } else if (points >= upgrades[1]) {
@@ -386,7 +374,7 @@ function upgradeBackground(color) {
     } else if (color === 'multi') {
         //checks if it is in localstorage
         if (localStorage.getItem('multiOwned', true)) {
-            alert('You already own this!');
+            showAlerts('alreadyOwn');
             document.body.style.backgroundImage = 'url("../img/multi.png")';
             //if not in local storage checks if you have enough points, then puts in localstorage that you own it
         } else if (points >= upgrades[2]) {
@@ -411,7 +399,7 @@ function buyDice(color) {
     if (color === 'gold') {
         //checks if it is in localstorage
         if (localStorage.getItem('diceGoldOwned', true)) {
-            alert('You already own this!!');
+            showAlerts('alreadyOwn');
             updateDiceGold();
             //if not in local storage checks if you have enough points, then puts in localstorage that you own it
         } else if (points >= upgrades[3]) {
@@ -424,7 +412,7 @@ function buyDice(color) {
     } else if (color === 'blue') {
         //checks if it is in localstorage
         if (localStorage.getItem('diceBlueOwned', true)) {
-            alert('You aready own this!!');
+            showAlerts('alreadyOwn');
             updateDiceBlue();
             //if not in local storage checks if you have enough points, then puts in localstorage that you own it
         } else if (points >= upgrades[4]) {
