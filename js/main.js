@@ -11,7 +11,7 @@ const xpNeeded = 100;
 let level = localStorage.getItem('level') ? parseInt(localStorage.getItem('level')) : 0;
 let xp = localStorage.getItem('xp') ? parseInt(localStorage.getItem('xp')) : 0;
 let xpNumber = document.querySelector('.progressxp').innerText = 'progress: ' + xp + '/' + xpNeeded;
-let levelNumber = document.querySelector('.levelxp').innerText += ' ' + level;
+let levelNumber = document.querySelector('.levelxp').innerText = 'level: ' + level;
 let highScorePoint = localStorage.getItem('highscore') ? parseInt(localStorage.getItem('highscore')) : 0;
 let pointSystem = document.querySelector('.point').innerText = points;
 let highScore = document.querySelector('.highscore').innerText = highScorePoint;
@@ -285,8 +285,8 @@ function levelUp() {
     if (xp >= 100) {
         xp = xp - 100;
         level = level + 1;
-        levelNumber = document.querySelector('.levelxp').innerText = 'level: ' + level;
-        localStorage.setItem('level', levelNumber);
+        levelNumber = document.querySelector('.levelxp').innerText = "level: " + level;
+        localStorage.setItem('level', level);
         updatePoints('xp');
     }
 }
