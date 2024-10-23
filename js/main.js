@@ -7,6 +7,11 @@ let intervalId;
 let timeLeft = 600;
 let multiplier = false;
 let points = localStorage.getItem('points') ? parseInt(localStorage.getItem('points')) : 0;
+const xpNeeded = 100;
+let level = localStorage.getItem('level') ? parseInt(localStorage.getItem('level')) : 0;
+let xp = localStorage.getItem('xp') ? parseInt(localStorage.getItem('xp')) : 0;
+let xpNumber = document.querySelector('.progressxp').innerText = 'progress: ' + xp + '/' + xpNeeded;
+let levelNumber = document.querySelector('.levelxp').innerText += ' ' + level;
 let highScorePoint = localStorage.getItem('highscore') ? parseInt(localStorage.getItem('highscore')) : 0;
 let pointSystem = document.querySelector('.point').innerText = points;
 let highScore = document.querySelector('.highscore').innerText = highScorePoint;
@@ -149,7 +154,7 @@ function handleGuess(index, alertType, guessType) {
                 setTimeout(function () { //After 4 seconds
                     guess(guessType); //Checks if you win
                     updatePoints('points');
-                    updatePoints();
+                    updatePoints('xp');
                     gameStart[1] = false;
                     gameStart[index] = false; //Sets the gamestart to false
                 }, 4000);
@@ -172,6 +177,7 @@ function cycleDice() {
 function cycleGuess() {
     let randomDice = Math.round(Math.random() * (6 - 1) + 1);
     //removes the class
+    //console.log(diceGuess, currentDiceGuess);
     diceGuess[currentDiceGuess].classList.remove('active-guess');
     //adds the class to a random dice because of the randomDice variable
     currentDiceGuess = (randomDice) % totalImages[1];
@@ -183,6 +189,7 @@ function guess(type) {
     if (type === 'guessHigher') {
         //checks if currentdice is smaller than currentdiceguess
         if (currentDice < currentDiceGuess) {
+<<<<<<< Updated upstream
             //checks if multiplier is true
             if(multiplier) {
                 points = points + 20;
@@ -191,18 +198,30 @@ function guess(type) {
                 points = points + 10;
                 highScorePoint = highScorePoint + 10;
             }
+=======
+            //adds the points
+            points = points + 10;
+            highScorePoint = highScorePoint + 10;
+            //adds the xp
+            xp = xp + 80;
+>>>>>>> Stashed changes
             showMultipleAlerts('win');
         } else if (currentDiceGuess === currentDice) {
+            //adds the xp
+            xp = xp + 80;
             showMultipleAlerts('tie');
         } else {
             //removes the points
             points = points - 5;
+            // adds the xp
+            xp = xp + 80;
             showMultipleAlerts('lose');
         }
     }
     if (type === 'guessLower') {
         //checks if currentdiceguess is smaller than currentdice
         if (currentDiceGuess < currentDice) {
+<<<<<<< Updated upstream
             if(multiplier) {
                 points = points + 20;
                 highScorePoint = highScorePoint + 20;
@@ -210,12 +229,23 @@ function guess(type) {
                 points = points + 10;
                 highScorePoint = highScorePoint + 10;
             }
+=======
+            //adds the points
+            points = points + 10; + 10;
+            highScorePoint = highScorePoint + 10;
+            //adds the xp
+            xp = xp + 20;
+>>>>>>> Stashed changes
             showMultipleAlerts('win');
         } else if (currentDiceGuess === currentDice) {
+            //adds the xp
+            xp = xp + 10;
             showMultipleAlerts('tie');
         } else {
             //removes the points
             points = points - 5;
+            //adds the xp
+            xp = xp + 5;
             showMultipleAlerts('lose');
         }
     }
@@ -231,6 +261,7 @@ function showMultipleAlerts(alertsArray) {
 //function to update the points to localstorage
 function updatePoints(type) {
     //checks if the points go under 0, if they do it stays at 0
+    console.log(type)
     if (type === 'points') {
         if (points < 0) {
             points = 0;
@@ -242,12 +273,26 @@ function updatePoints(type) {
             pointSystem = document.querySelector('.point').innerText = points;
             localStorage.setItem('points', points);
         }
-    } else {
+    } if(type === 'highscore') {
         //updates the highscorepoints in localstorage
         highScore = document.querySelector('.highscore').innerText = highScorePoint;
         localStorage.setItem('highscore', highScorePoint);
+    } if(type === 'xp') {
+        console.log(xp);
+        xpNumber = document.querySelector('.progressxp').innerText = 'progress: ' + xp + '/' + xpNeeded;
+        localStorage.setItem('xp', xp);
     }
 }
+
+function levelUp() {
+    if(xp === 100) {
+        level = level + 1;
+        levelNumber = document.querySelector('.levelxp').innerText = 'level: ' + level;
+        localStorage.setItem('level', levelNumber);
+    }
+    levelUp()
+}
+console.log(level)
 
 //function to open the popup
 function openPopup() {
