@@ -189,48 +189,62 @@ function guess(type) {
         //checks if currentdice is smaller than currentdiceguess
         if (currentDice < currentDiceGuess) {
             //checks if multiplier is true
-            if(multiplier) {
+            if (multiplier) {
                 points = points + 20;
                 highScorePoint = highScorePoint + 20;
+                //adds the xp
+                xp = xp + 40;
+                levelUp()
             } else {
                 points = points + 10;
                 highScorePoint = highScorePoint + 10;
                 //adds the xp
                 xp = xp + 20;
+                levelUp()
             }
             showMultipleAlerts('win');
         } else if (currentDiceGuess === currentDice) {
             //adds the xp
             xp = xp + 10
+            levelUp()
             showMultipleAlerts('tie');
         } else {
             //removes the points
             points = points - 5;
             // adds the xp
             xp = xp + 5;
+            levelUp()
             showMultipleAlerts('lose');
         }
     }
     if (type === 'guessLower') {
         //checks if currentdiceguess is smaller than currentdice
         if (currentDiceGuess < currentDice) {
-            if(multiplier) {
+            if (multiplier) {
                 points = points + 20;
                 highScorePoint = highScorePoint + 20;
+                //adds the xp
+                xp = xp + 40;
+                levelUp()
             } else {
                 points = points + 10;
                 highScorePoint = highScorePoint + 10;
+                //adds the xp
+                xp = xp + 20;
+                levelUp()
             }
             showMultipleAlerts('win');
         } else if (currentDiceGuess === currentDice) {
             //adds the xp
             xp = xp + 10;
+            levelUp()
             showMultipleAlerts('tie');
         } else {
             //removes the points
             points = points - 5;
             //adds the xp
             xp = xp + 5;
+            levelUp()
             showMultipleAlerts('lose');
         }
     }
@@ -257,25 +271,26 @@ function updatePoints(type) {
             pointSystem = document.querySelector('.point').innerText = points;
             localStorage.setItem('points', points);
         }
-    } if(type === 'highscore') {
+    } if (type === 'highscore') {
         //updates the highscorepoints in localstorage
         highScore = document.querySelector('.highscore').innerText = highScorePoint;
         localStorage.setItem('highscore', highScorePoint);
-    } if(type === 'xp') {
+    } if (type === 'xp') {
         xpNumber = document.querySelector('.progressxp').innerText = 'progress: ' + xp + '/' + xpNeeded;
         localStorage.setItem('xp', xp);
     }
 }
 
 function levelUp() {
-    if(xp === 100) {
+    if (xp >= 100) {
+        xp = xp - 100;
         level = level + 1;
         levelNumber = document.querySelector('.levelxp').innerText = 'level: ' + level;
         localStorage.setItem('level', levelNumber);
+        updatePoints('xp');
     }
-    levelUp()
 }
-console.log(level)
+levelUp()
 
 //function to open the popup
 function openPopup() {
@@ -468,18 +483,21 @@ function updateDiceGold() {
 }
 
 function startTimer() {
+    const timerBlock = document.querySelector('.timer')
+    timerBlock.style.opacity = 1;
+
     multiplier = true;
     timeLeft = 600;
-    if(multiplier) {
+    if (multiplier) {
         setInterval(() => {
             let minutes = Math.floor(timeLeft / 60);
             let seconds = timeLeft % 60;
             document.querySelector('.timer').textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
             timeLeft--;
-    
+
             if (timeLeft < 0) {
-                document.querySelector('.timer').textContent = "Time's Up!";      
-                updateText(".multiply", "Multiply points x2");   
+                document.querySelector('.timer').textContent = "Time's Up!";
+                updateText(".multiply", "Multiply points x2");
                 multiplier = false;
             }
         }, 1000);

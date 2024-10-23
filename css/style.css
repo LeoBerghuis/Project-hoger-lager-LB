@@ -271,6 +271,7 @@ main {
   border: 2px solid white;
   margin-left: 10px;
   font-family: Arial, Helvetica, sans-serif;
+  opacity: 0;
 }
 
 .xpBox {
