@@ -195,17 +195,19 @@ function guess(type) {
             } else {
                 points = points + 10;
                 highScorePoint = highScorePoint + 10;
+                //adds the xp
+                xp = xp + 20;
             }
             showMultipleAlerts('win');
         } else if (currentDiceGuess === currentDice) {
             //adds the xp
-            xp = xp + 80;
+            xp = xp + 10
             showMultipleAlerts('tie');
         } else {
             //removes the points
             points = points - 5;
             // adds the xp
-            xp = xp + 80;
+            xp = xp + 5;
             showMultipleAlerts('lose');
         }
     }
