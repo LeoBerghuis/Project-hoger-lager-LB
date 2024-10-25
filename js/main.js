@@ -50,6 +50,8 @@ window.onload = checkLocalStorage();
 
 //function to check local storage
 function checkLocalStorage() {
+
+    // TODO Maak switch statement van
     if (localStorage.getItem('goldOwned')) {
         updateText(".gold", "Gold background | owned");
     }
@@ -90,6 +92,8 @@ function startCycling(type) {
             setTimeout(function () {
                 gameStart[0] = false;
             }, 4000);
+
+            //* Mooi voorbeeld van een benodigde else statement
         } else {
             showAlerts('alreadyStarted'); //If game already started
         }
@@ -131,29 +135,39 @@ function handleGuess(index, alertType, guessType) {
         //Checks if game is started
         if (gameStart[1] === false) {
             alert('Start the game first!');
-        } else {
-            //Checks if you already started the game
-            if (gameStart[2] || gameStart[3]) {
-                showAlerts(alertType);
-            } else {
-                gameStart[index] = true; //Sets the higher/lower to true
-                diceStart(cycleGuess); //Runs the dice guess
-                setTimeout(function () { //After 4 seconds
-                    guess(guessType); //Checks if you win
-                    updatePoints('points');
-                    updatePoints('xp');
-                    gameStart[1] = false;
-                    gameStart[index] = false; //Sets the gamestart to false
-                }, 4000);
-            }
-    }
+
+            //? Concept heet "Early exit"
+            //? Mooie manier om geen else statement te schrijven :)
+            return;
+        }
+
+        //Checks if you already started the game
+        if (gameStart[2] || gameStart[3]) {
+            showAlerts(alertType);
+
+            return;
+        }
+
+        gameStart[index] = true; //Sets the higher/lower to true
+        diceStart(cycleGuess); //Runs the dice guess
+        setTimeout(function () { //After 4 seconds
+            guess(guessType); //Checks if you win
+            updatePoints('points');
+            updatePoints('xp');
+
+            gameStart[1] = false;
+            gameStart[index] = false; //Sets the gamestart to false
+        }, 4000);
+        
 }
 
 //function to switch between the dices
 function cycleDice() {
     let randomDice = Math.round(Math.random() * (6 - 1) + 1);
+
     //removes the class
     dice[currentDice].classList.remove('active');
+
     //adds the class to a random dice because of the randomDice variable
     currentDice = (randomDice) % totalImages[0];
     dice[currentDice].classList.add('active');
@@ -171,6 +185,10 @@ function cycleGuess() {
 
 //function for the points adding/removing
 function guess(type) {
+
+    //TODO 2x dezelfde code? This could be a function :)
+    //TODO Probeer zo min mogelijk if in if in if in if.
+    //TODO Soms ontkom je er niet aan, maar in dit geval zeker wel :P
     if (type === 'guessHigher') {
         //checks if currentdice is smaller than currentdiceguess
         if (currentDice < currentDiceGuess) {
@@ -257,11 +275,15 @@ function updatePoints(type) {
             pointSystem = document.querySelector('.point').innerText = points;
             localStorage.setItem('points', points);
         }
-    } if (type === 'highscore') {
+    }
+    
+    if (type === 'highscore') {
         //updates the highscorepoints in localstorage
         highScore = document.querySelector('.highscore').innerText = highScorePoint;
         localStorage.setItem('highscore', highScorePoint);
-    } if (type === 'xp') {
+    }
+
+    if (type === 'xp') {
         xpNumber = document.querySelector('.progressxp').innerText = 'progress: ' + xp + '/' + xpNeeded;
         localStorage.setItem('xp', xp);
     }
@@ -292,54 +314,50 @@ function openPopupSmall() {
 function alerts(type) {
     const alertText = document.querySelector('.alert-text');
 
-    if (screenWidth <= 504) {
-        alertPopup.style.bottom = '1em';
-        alertPopup.style.top = '';
-        alertPopup.style.opacity = '1';
-    } else {
-        alertPopup.style.top = '1em';
-        alertPopup.style.bottom = '';
-        alertPopup.style.opacity = '1';
-    }
-    if (type === 'win') {
-        alertText.innerText = 'You win!';
-    }
-    if (type === 'lose') {
-        alertText.innerText = 'You lose :(';
-    }
-    if (type === 'tie') {
-        alertText.innerText = 'Tie!';
-    }
-    if (type === 'guessLower') {
-        alertText.innerText = 'You already started guessing!!';
-    }
-    if (type === 'guessHigher') {
-        alertText.innerText = 'You already started guessing!!';
-    }
-    if (type === 'alreadyStarted') {
-        alertText.innerText = 'You already started the game!';
-    }
-    if (type === 'stillStarting') {
-        alertText.innerText = 'Please wait, the game is starting!';
-    }
-    if (type === 'alreadyOwn') {
-        alertText.innerText = 'You already own this!';
+    // Probeer altijd zonder else statements te programmeren (Soms kan het niet anders)
+    // Default values zijn belangrijk om te initialiseren aan het begin
+    alertPopup.style.top = '1em';
+    alertPopup.style.bottom = '';
+    alertPopup.style.opacity = '1';
+
+    // switch statements zijn korter dan een if chain.
+    // Niet alleen korter, maar ook meer performant.
+    // Dit komt doordat er maar 1x door de switch statement heen geloopt word integenstelling tot de gehele if chain.
+    switch(type) {
+        case 'win':
+            alertText.innerText = 'You win!';
+            break;
+        case 'lose':
+            alertText.innerText = 'You lose :(';
+            break;
+        case 'tie':
+            alertText.innerText = 'Tie!';
+            break;
+        case 'guessLower':
+            alertText.innerText = 'You already started guessing!!';
+            break;
+        case 'guessHigher':
+            alertText.innerText = 'You already started guessing!!';
+            break;
+        case 'alreadyStarted':
+            alertText.innerText = 'You already started the game!';
+            break;
+        case 'stillStarting':
+            alertText.innerText = 'Please wait, the game is starting!';
+            break;
+        case 'alreadyOwn':
+            alertText.innerText = 'You already own this!';
+            break;
+        default:
+            'What are you doing here?';
     }
 }
 
 function closeAlerts() {
-    if (screenWidth <= 504) {
-        alertPopup.style.opacity = '0';
-        alertPopup.style.bottom = '-10em';
-        alertPopup.style.top = '';
-        alertPopup.style.transition = 'opacity 0.5s ease-in-out, bottom 0.5s ease-in-out';
-    } else {
-        alertPopup.style.opacity = '0';
-        alertPopup.style.top = '-10em';
-        alertPopup.style.bottom = '';
-        alertPopup.style.transition = 'opacity 0.5s ease-in-out, top 0.5s ease-in-out';
-    }
-
+    alertPopup.style.opacity = '0';
+    alertPopup.style.top = '-10em';
+    alertPopup.style.bottom = '';
+    alertPopup.style.transition = 'opacity 0.5s ease-in-out, top 0.5s ease-in-out';
 }
 
 
@@ -476,20 +494,23 @@ function startTimer() {
 
     multiplier = true;
     timeLeft = 600;
-    if (multiplier) {
-        setInterval(() => {
-            let minutes = Math.floor(timeLeft / 60);
-            let seconds = timeLeft % 60;
-            document.querySelector('.timer').textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
-            timeLeft--;
 
-            if (timeLeft < 0) {
-                document.querySelector('.timer').textContent = "Time's Up!";
-                updateText(".multiply", "Multiply points x2");
-                multiplier = false;
-            }
-        }, 1000);
-    } else {
+    //? If statements kan je ook "omdraaien" om een early exit te maken
+    if (!multiplier) {
         document.querySelector('.timer').textContent = "Time's Up!";
+        return;
     }
+
+    setInterval(() => {
+        let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
+        document.querySelector('.timer').textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+        timeLeft--;
+
+        if (timeLeft < 0) {
+            document.querySelector('.timer').textContent = "Time's Up!";
+            updateText(".multiply", "Multiply points x2");
+            multiplier = false;
+        }
+    }, 1000);
 }
