@@ -51,7 +51,6 @@ window.onload = checkLocalStorage();
 //function to check local storage
 function checkLocalStorage() {
 
-    // TODO Maak switch statement van
     if (localStorage.getItem('goldOwned')) {
         updateText(".gold", "Gold background | owned");
     }
@@ -122,43 +121,44 @@ function startCycling(type) {
 
 //Function to cycle the dice images
 function diceStart(type) {
-        // Starts cycling dice every 100ms for 4 seconds
-        intervalId = setInterval(type, 100);
-        // Stops the dice cycling after 4 seconds
-        setTimeout(function () {
-            clearInterval(intervalId);
-        }, 4000);
+    // Starts cycling dice every 100ms for 4 seconds
+    intervalId = setInterval(type, 100);
+    // Stops the dice cycling after 4 seconds
+    setTimeout(function () {
+        clearInterval(intervalId);
+    }, 4000);
 }
 
 //Handle the guess
 function handleGuess(index, alertType, guessType) {
-        //Checks if game is started
-        if (gameStart[1] === false) {
-            alert('Start the game first!');
+    //Checks if game is started
+    if (gameStart[1] === false) {
+        alert('Start the game first!');
 
-            //? Concept heet "Early exit"
-            //? Mooie manier om geen else statement te schrijven :)
-            return;
-        }
+        //? Concept heet "Early exit"
+        //? Mooie manier om geen else statement te schrijven :)
+        return;
+    }
 
-        //Checks if you already started the game
-        if (gameStart[2] || gameStart[3]) {
-            showAlerts(alertType);
+    //Checks if you already started the game
+    if (gameStart[2] || gameStart[3]) {
+        showAlerts(alertType);
 
-            return;
-        }
+        return;
+    }
 
-        gameStart[index] = true; //Sets the higher/lower to true
-        diceStart(cycleGuess); //Runs the dice guess
-        setTimeout(function () { //After 4 seconds
-            guess(guessType); //Checks if you win
-            updatePoints('points');
-            updatePoints('xp');
+    gameStart[index] = true; //Sets the higher/lower to true
+    diceStart(cycleGuess); //Runs the dice guess
+    setTimeout(function () { //After 4 seconds
+        guess(guessType); //Checks if you win
+        updatePoints('points');
+        updatePoints('xp');
+        updatePoints('highscore');
 
-            gameStart[1] = false;
-            gameStart[index] = false; //Sets the gamestart to false
-        }, 4000);
-        
+        gameStart[1] = false;
+        gameStart[index] = false; //Sets the gamestart to false
+    }, 4000);
+
 }
 
 //function to switch between the dices
@@ -276,7 +276,7 @@ function updatePoints(type) {
             localStorage.setItem('points', points);
         }
     }
-    
+
     if (type === 'highscore') {
         //updates the highscorepoints in localstorage
         highScore = document.querySelector('.highscore').innerText = highScorePoint;
@@ -323,7 +323,7 @@ function alerts(type) {
     // switch statements zijn korter dan een if chain.
     // Niet alleen korter, maar ook meer performant.
     // Dit komt doordat er maar 1x door de switch statement heen geloopt word integenstelling tot de gehele if chain.
-    switch(type) {
+    switch (type) {
         case 'win':
             alertText.innerText = 'You win!';
             break;
@@ -489,26 +489,26 @@ function updateDiceGold() {
 }
 
 function startTimer() {
-    const timerBlock = document.querySelector('.timer')
-    timerBlock.style.opacity = 1;
+    const timer = document.querySelector('.timer')
+    timer.style.opacity = 1;
 
     multiplier = true;
     timeLeft = 600;
 
     //? If statements kan je ook "omdraaien" om een early exit te maken
     if (!multiplier) {
-        document.querySelector('.timer').textContent = "Time's Up!";
+        document.querySelector('.timer').innerText = "Time's Up!";
         return;
     }
 
     setInterval(() => {
         let minutes = Math.floor(timeLeft / 60);
         let seconds = timeLeft % 60;
-        document.querySelector('.timer').textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+        document.querySelector('.timer').innerText = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
         timeLeft--;
 
         if (timeLeft < 0) {
-            document.querySelector('.timer').textContent = "Time's Up!";
+            document.querySelector('.timer').innerText = "Time's Up!";
             updateText(".multiply", "Multiply points x2");
             multiplier = false;
         }
