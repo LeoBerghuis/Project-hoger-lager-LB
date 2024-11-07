@@ -495,22 +495,23 @@ function startTimer() {
     multiplier = true;
     timeLeft = 600;
 
-    //? If statements kan je ook "omdraaien" om een early exit te maken
-    if (!multiplier) {
-        document.querySelector('.timer').innerText = "Time's Up!";
-        return;
-    }
+
 
     setInterval(() => {
         let minutes = Math.floor(timeLeft / 60);
         let seconds = timeLeft % 60;
-        document.querySelector('.timer').innerText = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+        timer.innerText = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
         timeLeft--;
 
         if (timeLeft < 0) {
-            document.querySelector('.timer').innerText = "Time's Up!";
             updateText(".multiply", "Multiply points x2");
             multiplier = false;
+            timer.innerText = "Time's Up!";
+
+            setTimeout(() => {
+                timer.style.opacity = 0;
+                timeLeft = 600;
+            }, 3000);
         }
     }, 1000);
 }
